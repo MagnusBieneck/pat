@@ -1,0 +1,7 @@
+*.sqlite3
+*.marker
+*.pyc
+*/__pycache__
+.idea/*
+*.egg-info
+*.DS_Store
