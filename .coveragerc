@@ -1,0 +1,12 @@
+[run]
+omit =
+	# Directories
+	tests/*
+	.pytest_cache/*
+	venv/*
+	pat.egg-info/*
+	*/migrations/*
+	pat/*
+	# Single Files
+	manage.py
+	setup.py
