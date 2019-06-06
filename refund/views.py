@@ -1,3 +1,4 @@
-from django.shortcuts import render
+"""Module containing views for the Refund app."""
+# from django.shortcuts import render
 
 # Create your views here.
