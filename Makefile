@@ -1,5 +1,5 @@
 ##########################
-# Makefile for weddingms #
+#    Makefile for pat    #
 # (c)2019 Magnus Bieneck #
 ##########################
 SHELL := /bin/bash
@@ -31,7 +31,7 @@ migrate: init
 
 ##################################### T E S T   T A R G E T S #####################################
 lint: init
-	pylint wms/* user/* page/* internal/* wish_list/* tests/*
+	pylint pat/* refund/* tests/*
 .PHONY: lint
 
 
@@ -46,4 +46,4 @@ quick-verify: lint test
 
 ##################################### C L E A N   T A R G E T #####################################
 clean:
-	rm -rf *.marker weddingms.egg-info/* build/* dist/*
+	rm -rf *.marker pat.egg-info/* build/* dist/*
