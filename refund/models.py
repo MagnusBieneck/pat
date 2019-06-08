@@ -12,15 +12,24 @@ REFUND_TYPES = [
 class Refund(models.Model):
     """Model representing an expense refund form."""
     date_submitted = models.DateField()
-    department_leader = models.TextField()
-    account = models.TextField()
-    cost_centre = models.TextField()
-    project = models.TextField(blank=True, null=True)
+    department_leader = models.CharField(max_length=128)
+    account = models.CharField(max_length=128)
+    cost_centre = models.CharField(max_length=128)
+    project = models.CharField(blank=True, null=True, max_length=256)
 
     refund_type = models.TextField(choices=REFUND_TYPES)
-    bank_account_owner = models.TextField(blank=True, null=True)
-    bank_account_iban = models.TextField(blank=True, null=True)
-    bank_account_bic = models.TextField(blank=True, null=True)
+    bank_account_owner = models.CharField(blank=True, null=True, max_length=128)
+    bank_account_iban = models.CharField(blank=True, null=True, max_length=128)
+    bank_account_bic = models.CharField(blank=True, null=True, max_length=128)
+
+    def __str__(self):
+        """String representation of the Refund object."""
+        return "{} for {} ({} - {})".format(
+            self.amount,
+            self.project or "Unknown project",
+            self.department_leader,
+            self.cost_centre
+        )
 
     @property
     def amount(self):

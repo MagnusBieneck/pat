@@ -18,6 +18,13 @@ def test_refund_basic(refund, refund_dict):
     assert refund.bank_account_iban == refund_dict["bank_account_iban"]
     assert refund.bank_account_bic == refund_dict["bank_account_bic"]
 
+    assert str(refund) == "{} for {} ({} - {})".format(
+        refund.amount,
+        refund.project or "Unknown project",
+        refund.department_leader,
+        refund.cost_centre
+    )
+
 
 @pytest.mark.django_db
 def test_refund_amount(refund):
