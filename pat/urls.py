@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from refund.views import request_form, form_submitted
+
 # pylint: disable=invalid-name
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', request_form, name='request_form'),
+    path('form-submitted/', form_submitted, name='form_submitted'),
+    path('admin/', admin.site.urls)
 ]

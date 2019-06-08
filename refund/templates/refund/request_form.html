@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="col-8">
+  <h1 class="mt-2">Expense Refund Form</h1>
+  <hr class="mt-0 mr-4" />
+  <form action="/" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+</div>
+{% endblock %}
