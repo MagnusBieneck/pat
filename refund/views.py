@@ -11,7 +11,7 @@ def request_form(request):
 
     if request.method == "POST":
 
-        form = RefundForm(request.POST)
+        form = RefundForm(request.POST, request.FILES)
         if form.is_valid():
 
             form.instance.date_submitted = date.today()

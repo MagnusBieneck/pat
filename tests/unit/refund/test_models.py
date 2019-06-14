@@ -1,6 +1,5 @@
 """Module containing tests for the refund models."""
 import pytest
-from refund.models import Receipt
 
 
 @pytest.mark.django_db
@@ -29,12 +28,8 @@ def test_refund_basic(refund, refund_dict):
 @pytest.mark.django_db
 def test_refund_amount(refund):
     """Test that the sum of a refund is computed correctly."""
+    refund.receipt_0_amount = 10.7
+    refund.receipt_1_amount = 13.2
     refund.save()
-
-    receipt_one = Receipt(refund=refund, amount=10.7)
-    receipt_one.save()
-
-    receipt_two = Receipt(refund=refund, amount=13.2)
-    receipt_two.save()
 
     assert refund.amount == 23.9

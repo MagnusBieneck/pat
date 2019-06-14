@@ -22,6 +22,28 @@ class Refund(models.Model):
     bank_account_iban = models.CharField(blank=True, null=True, max_length=128)
     bank_account_bic = models.CharField(blank=True, null=True, max_length=128)
 
+    # Receipt fields
+    receipt_0_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_0_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_1_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_1_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_2_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_2_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_3_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_3_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_4_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_4_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_5_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_5_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_6_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_6_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_7_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_7_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_8_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_8_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_9_picture = models.FileField(default=None, null=True, blank=True)
+    receipt_9_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+
     def __str__(self):
         """String representation of the Refund object."""
         return "{} for {} ({} - {})".format(
@@ -35,12 +57,15 @@ class Refund(models.Model):
     def amount(self):
         """Return the sum of all receipts belonging to this refund."""
         # pylint: disable=no-member
-        return float(sum([receipt.amount for receipt in Receipt.objects.filter(refund=self)]))
-
-
-class Receipt(models.Model):
-    """Model representing a receipt."""
-    refund = models.ForeignKey("Refund", on_delete=models.CASCADE)
-    amount = models.DecimalField(decimal_places=2, max_digits=8)
-
-    # Add document field here!
+        return float(sum([
+            self.receipt_0_amount,
+            self.receipt_1_amount,
+            self.receipt_2_amount,
+            self.receipt_3_amount,
+            self.receipt_4_amount,
+            self.receipt_5_amount,
+            self.receipt_6_amount,
+            self.receipt_7_amount,
+            self.receipt_8_amount,
+            self.receipt_9_amount
+        ]))

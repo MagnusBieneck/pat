@@ -20,3 +20,7 @@ class RefundForm(forms.ModelForm):
             "bank_account_iban",
             "bank_account_bic"
         ]
+
+        for i in range(10):
+            fields.append("receipt_{}_picture".format(i))
+            fields.append("receipt_{}_amount".format(i))
