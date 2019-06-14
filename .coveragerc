@@ -6,7 +6,8 @@ omit =
 	venv/*
 	pat.egg-info/*
 	*/migrations/*
-	pat/*
 	# Single Files
 	manage.py
 	setup.py
+	pat/urls.py
+	pat/wsgi.py
