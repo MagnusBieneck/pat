@@ -1,7 +1,15 @@
 """Module containing integration tests for the refund form."""
+import os
+import tempfile
+
+from django.conf import settings
 from django.test import TransactionTestCase, Client
 from refund.models import Refund
 from tests.conftest import REFUND_DICT
+
+TEST_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testdata", "test_refund_form")
+TEMP_DIR = tempfile.TemporaryDirectory()
+settings.MEDIA_ROOT = TEMP_DIR.name
 
 
 class TestRefundForm(TransactionTestCase):
@@ -32,14 +40,25 @@ class TestRefundForm(TransactionTestCase):
     # pylint: disable=no-self-use, no-member
     def test_submit(self):
         """Test that submitting the form works correctly."""
+        data = REFUND_DICT.copy()
+        data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
+
         client = Client()
-        response = client.post("/", data=REFUND_DICT, follow=True)
+        response = client.post("/", data=data, follow=True)
 
         assert response.status_code == 200
+        self.assertTemplateUsed(response, "refund/form_submitted.html")
 
         filter_parameters = REFUND_DICT.copy()
         filter_parameters.pop("date_submitted")
         refunds = Refund.objects.filter(department_leader="John Doe", account="Dunno",
                                         cost_centre="General Expenses", project="Conference",
                                         refund_type="cash", bank_account_owner="Mr Smith")
+
         assert len(refunds) == 1
+        refund = refunds[0]
+        assert refund.receipt_0_picture.name == "receipt_0.jpg"
+        assert os.path.exists(refund.receipt_0_picture.path)
+
+        data["receipt_0_picture"].close()
+        TEMP_DIR.cleanup()
