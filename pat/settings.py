@@ -129,3 +129,7 @@ STATICFILES_DIRS = [
 
 # Django crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Media attributes
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
