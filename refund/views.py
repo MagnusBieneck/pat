@@ -17,7 +17,7 @@ def request_form(request):
             form.instance.date_submitted = date.today()
             form.save()
 
-            return HttpResponseRedirect("/form-submitted")
+            return HttpResponseRedirect("/refund/form-submitted/")
 
     else:
 
