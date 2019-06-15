@@ -36,7 +36,7 @@ lint: init
 
 
 test: init
-	pytest --cov-config .coveragerc --cov=./ --cov-report term-missing:skip-covered tests --cov-fail-under=95
+	pytest --cov-config .coveragerc --cov=./ --cov-report term-missing:skip-covered tests --cov-fail-under=100
 .PHONY: test
 
 

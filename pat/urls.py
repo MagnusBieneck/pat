@@ -18,12 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from pat.views import home
 from refund.views import request_form, form_submitted
 
 # pylint: disable=invalid-name
 urlpatterns = [
-    path('', request_form, name='request_form'),
-    path('form-submitted/', form_submitted, name='form_submitted'),
+    path('', home, name='home'),
+    path('refund/', request_form, name='request_form'),
+    path('refund/form-submitted/', form_submitted, name='form_submitted'),
     path('admin/', admin.site.urls)
 ]
 
