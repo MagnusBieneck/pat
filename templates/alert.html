@@ -1,0 +1,7 @@
+{% if alert %}
+<div class="col-12">
+  <div class="alert alert-{{ alert.type }} alert-dismissible fade show" role="alert">
+    {{ alert.message }}
+  </div>
+</div>
+{% endif %}
