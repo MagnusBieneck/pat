@@ -24,7 +24,7 @@ from refund.views import request_form, form_submitted
 # pylint: disable=invalid-name
 urlpatterns = [
     path('', home, name='home'),
-    path('refund/', request_form, name='request_form'),
+    path('refund/new/', request_form, name='request_form'),
     path('refund/form-submitted/', form_submitted, name='form_submitted'),
     path('admin/', admin.site.urls)
 ]

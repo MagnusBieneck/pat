@@ -18,7 +18,7 @@ class TestRefundForm(TransactionTestCase):
     def test_form(self):
         """Test that the form appears correctly."""
         client = Client()
-        response = client.get("/refund/")
+        response = client.get("/refund/new/")
 
         assert response.status_code == 200
 
@@ -44,7 +44,7 @@ class TestRefundForm(TransactionTestCase):
         data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
 
         client = Client()
-        response = client.post("/refund/", data=data, follow=True)
+        response = client.post("/refund/new/", data=data, follow=True)
 
         assert response.status_code == 200
         self.assertTemplateUsed(response, "refund/form_submitted.html")
