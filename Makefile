@@ -14,7 +14,7 @@ init: init.marker
 
 
 ################################# D J A N G O   M A N A G E . P Y #################################
-run: init
+run: init compilemessages
 	python manage.py runserver
 .PHONY: run
 
@@ -27,6 +27,16 @@ makemigrations: init
 migrate: init
 	python manage.py migrate
 .PHONY: migrate
+
+
+makemessages: init
+	python manage.py makemessages
+.PHONY: makemessages
+
+
+compilemessages: init locale/de/LC_MESSAGES/django.po
+	python manage.py compilemessages
+.PHONY: compilemessages
 
 
 ##################################### T E S T   T A R G E T S #####################################
@@ -46,4 +56,4 @@ quick-verify: lint test
 
 ##################################### C L E A N   T A R G E T #####################################
 clean:
-	rm -rf *.marker pat.egg-info/* build/* dist/*
+	rm -rf *.marker pat.egg-info/* build/* dist/* locale/*/LC_MESSAGES/*.mo

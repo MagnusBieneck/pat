@@ -17,6 +17,7 @@ REQUIRED = [
 	"django-crispy-forms >= 1.7",
 	"Django >= 2.1",
 	"gunicorn >= 19.9.0",
+	"python-gettext >= 4.0",
 	"pytz >= 2018.7",
 	"pytest >= 4.4",
 	"pylint >= 2.2",
