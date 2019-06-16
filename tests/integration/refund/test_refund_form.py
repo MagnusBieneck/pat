@@ -18,7 +18,7 @@ class TestRefundForm(TransactionTestCase):
     def test_form(self):
         """Test that the form appears correctly."""
         client = Client()
-        response = client.get("/refund/")
+        response = client.get("/refund/new/")
 
         assert response.status_code == 200
 
@@ -44,10 +44,10 @@ class TestRefundForm(TransactionTestCase):
         data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
 
         client = Client()
-        response = client.post("/refund/", data=data, follow=True)
+        response = client.post("/refund/new/", data=data, follow=True)
 
         assert response.status_code == 200
-        self.assertTemplateUsed(response, "refund/form_submitted.html")
+        self.assertTemplateUsed(response, "refund/index.html")
 
         filter_parameters = REFUND_DICT.copy()
         filter_parameters.pop("date_submitted")
@@ -59,6 +59,8 @@ class TestRefundForm(TransactionTestCase):
         refund = refunds[0]
         assert refund.receipt_0_picture.name == "receipt_0.jpg"
         assert os.path.exists(refund.receipt_0_picture.path)
+
+        assert "Your request has been successfully created." in str(response.content)
 
         data["receipt_0_picture"].close()
         TEMP_DIR.cleanup()

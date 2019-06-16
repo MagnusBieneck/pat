@@ -1,9 +1,18 @@
 """Module containing views for the Refund app."""
 from datetime import date
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from refund.forms import RefundForm
+from refund.models import Refund
+
+
+def index(request, context=None):
+    """Overview of refund requests."""
+    context = context or {}
+    data = Refund.objects.all()  # pylint: disable=no-member
+
+    context.update({"title": "Refund Overview", "data": data})
+    return render(request, "refund/index.html", context)
 
 
 def request_form(request):
@@ -17,15 +26,15 @@ def request_form(request):
             form.instance.date_submitted = date.today()
             form.save()
 
-            return HttpResponseRedirect("/refund/form-submitted/")
+            alert = {
+                "type": "success",
+                "message": "Your request has been successfully created."
+            }
+
+            return index(request, context={"alert": alert})
 
     else:
 
         form = RefundForm()
 
     return render(request, "refund/request_form.html", {"form": form, "title": "Expense refund"})
-
-
-def form_submitted(request):
-    """The view shown after the form has been submitted."""
-    return render(request, "refund/form_submitted.html", {"title": "Form submitted"})

@@ -19,13 +19,13 @@ from django.contrib import admin
 from django.urls import path
 
 from pat.views import home
-from refund.views import request_form, form_submitted
+from refund.views import index, request_form
 
 # pylint: disable=invalid-name
 urlpatterns = [
     path('', home, name='home'),
-    path('refund/', request_form, name='request_form'),
-    path('refund/form-submitted/', form_submitted, name='form_submitted'),
+    path('refund/', index, name='index'),
+    path('refund/new/', request_form, name='request_form'),
     path('admin/', admin.site.urls)
 ]
 
