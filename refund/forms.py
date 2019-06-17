@@ -24,3 +24,5 @@ class RefundForm(forms.ModelForm):
         for i in range(10):
             fields.append("receipt_{}_picture".format(i))
             fields.append("receipt_{}_amount".format(i))
+
+        localized_fields = "__all__"

@@ -11,7 +11,4 @@ class TestRefundIndex(TransactionTestCase):
         response = client.get("/refund/")
 
         assert response.status_code == 200
-
-        # These tests should be refined using a sophisticated HTML testing method (GitHub issue #18)
-        assert "Request Overview" in str(response.content)
-        assert "<table" in str(response.content)
+        self.assertTemplateUsed(response, "refund/index.html")

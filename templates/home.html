@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="col-12">
-  <h1>Process Automation Tools - Home</h1>
+  <h1>Process Automation Tools - {% trans 'Home' %}</h1>
 </div>
 <div class="col-4">
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Expense Refund</h5>
-      Request to have your expenses refunded.
+      <h5 class="card-title">{% trans 'Expense Refund' %}</h5>
+      {% trans 'Request to have your expenses refunded.' %}
       <a href="/refund/" class="card-link">Form</a>
     </div>
   </div>
