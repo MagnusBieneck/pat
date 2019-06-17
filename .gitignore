@@ -8,3 +8,4 @@
 .coverage
 backlog.txt
 media/*
+locale/*/LC_MESSAGES/*.mo
