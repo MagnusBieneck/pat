@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block content %}
 <div class="col-8 offset-2">
-  <h1 class="mt-2">Expense Refund Form</h1>
+  <h1 class="mt-2">{% trans 'Expense Refund Form' %}</h1>
   <hr class="mt-0 mr-4" />
   <form action="/refund/new/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" value="{% trans 'Submit' %}" class="btn btn-primary">
   </form>
 </div>
 {% endblock %}

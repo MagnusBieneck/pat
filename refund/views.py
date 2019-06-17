@@ -1,6 +1,7 @@
 """Module containing views for the Refund app."""
 from datetime import date
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 
 from refund.forms import RefundForm
 from refund.models import Refund
@@ -11,7 +12,7 @@ def index(request, context=None):
     context = context or {}
     data = Refund.objects.all()  # pylint: disable=no-member
 
-    context.update({"title": "Refund Overview", "data": data})
+    context.update({"title": _("Refund Overview"), "data": data})
     return render(request, "refund/index.html", context)
 
 
@@ -28,7 +29,7 @@ def request_form(request):
 
             alert = {
                 "type": "success",
-                "message": "Your request has been successfully created."
+                "message": _("Your request has been successfully created.")
             }
 
             return index(request, context={"alert": alert})
@@ -37,4 +38,4 @@ def request_form(request):
 
         form = RefundForm()
 
-    return render(request, "refund/request_form.html", {"form": form, "title": "Expense refund"})
+    return render(request, "refund/request_form.html", {"form": form, "title": _("Expense Refund")})

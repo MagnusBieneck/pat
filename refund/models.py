@@ -1,5 +1,6 @@
 """Module containing models for the refund app."""
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 REFUND_TYPES = [
     ("cash", "Bargeld"),
@@ -11,16 +12,19 @@ REFUND_TYPES = [
 
 class Refund(models.Model):
     """Model representing an expense refund form."""
-    date_submitted = models.DateField()
-    department_leader = models.CharField(max_length=128)
-    account = models.CharField(max_length=128)
-    cost_centre = models.CharField(max_length=128)
-    project = models.CharField(blank=True, null=True, max_length=256)
+    date_submitted = models.DateField(_("Date Submitted"))
+    department_leader = models.CharField(_("Department Leader"), max_length=128)
+    account = models.CharField(_("Account"), max_length=128)
+    cost_centre = models.CharField(_("Cost Centre"), max_length=128)
+    project = models.CharField(_("Project"), blank=True, null=True, max_length=256)
 
-    refund_type = models.TextField(choices=REFUND_TYPES)
-    bank_account_owner = models.CharField(blank=True, null=True, max_length=128)
-    bank_account_iban = models.CharField(blank=True, null=True, max_length=128)
-    bank_account_bic = models.CharField(blank=True, null=True, max_length=128)
+    refund_type = models.TextField(_("Refund Type"), choices=REFUND_TYPES)
+    bank_account_owner = models.CharField(_("Bank Account Owner"), blank=True, null=True,
+                                          max_length=128)
+    bank_account_iban = models.CharField(_("Bank Account IBAN"), blank=True, null=True,
+                                         max_length=128)
+    bank_account_bic = models.CharField(_("Bank Account BIC"), blank=True, null=True,
+                                        max_length=128)
 
     # Receipt fields
     receipt_0_picture = models.FileField(default=None, null=True, blank=True)
