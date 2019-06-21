@@ -45,9 +45,18 @@ lint: init
 .PHONY: lint
 
 
-test: init
-	pytest --cov-config .coveragerc --cov=./ --cov-report term-missing:skip-covered tests --cov-fail-under=100
+test: init test-unit test-integration
 .PHONY: test
+
+
+test-unit: init
+	pytest --cov-config .coveragerc-unit --cov=./ --cov-report term-missing:skip-covered tests/unit --cov-fail-under=100
+.PHONY: test-unit
+
+
+test-integration: init
+	pytest --cov-config .coveragerc-integration --cov=./ --cov-report term-missing:skip-covered tests/integration --cov-fail-under=100
+.PHONY: test-integration
 
 
 quick-verify: lint test
@@ -56,4 +65,4 @@ quick-verify: lint test
 
 ##################################### C L E A N   T A R G E T #####################################
 clean:
-	rm -rf *.marker pat.egg-info/* build/* dist/* locale/*/LC_MESSAGES/*.mo
+	rm -rf *.marker pat.egg-info/* build/* dist/* locale/*/LC_MESSAGES/*.mo geckodriver.log

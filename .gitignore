@@ -9,3 +9,4 @@
 backlog.txt
 media/*
 locale/*/LC_MESSAGES/*.mo
+geckodriver.log

@@ -11,3 +11,4 @@ omit =
 	setup.py
 	pat/urls.py
 	pat/wsgi.py
+	*/models.py
