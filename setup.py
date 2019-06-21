@@ -23,7 +23,8 @@ REQUIRED = [
 	"pylint >= 2.2",
 	"pytest-django >= 3.4",
 	"pytest-xdist >= 1.26",
-	"pytest-cov >= 2.6"
+	"pytest-cov >= 2.6",
+	"selenium >= 3"
 ]
 
 # What packages are optional?
