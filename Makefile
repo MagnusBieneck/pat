@@ -59,6 +59,11 @@ test-integration: init
 .PHONY: test-integration
 
 
+test-ui: init
+	pytest --cov-config .coveragerc-ui --cov=./ --cov-report term-missing:skip-covered tests/ui --cov-fail-under=100
+.PHONY: test-ui
+
+
 quick-verify: lint test
 .PHONY: quick-verify
 

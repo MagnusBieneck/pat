@@ -12,10 +12,3 @@ class TestHome(TransactionTestCase):
 
         assert response.status_code == 200
         self.assertTemplateUsed("templates/home.html")
-
-        elements = [
-            '<h5 class="card-title">Expense Refund</h5>',
-            '<a href="/refund/" class="card-link">Form</a>'
-        ]
-        for element in elements:
-            self.assertInHTML(element, str(response.content))
