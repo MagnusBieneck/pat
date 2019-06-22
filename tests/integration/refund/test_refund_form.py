@@ -4,7 +4,6 @@ import tempfile
 import pytest
 
 from django.conf import settings
-from django.test import Client
 from refund.models import Refund
 from tests.conftest import REFUND_DICT
 
@@ -13,9 +12,9 @@ TEMP_DIR = tempfile.TemporaryDirectory()
 settings.MEDIA_ROOT = TEMP_DIR.name
 
 
-def test_form():
+@pytest.mark.django_db
+def test_form(login, client):  # pylint: disable=unused-argument
     """Test that the form appears correctly."""
-    client = Client()
     response = client.get("/refund/new/")
 
     assert response.status_code == 200
@@ -24,12 +23,11 @@ def test_form():
 
 # pylint: disable=no-member
 @pytest.mark.django_db
-def test_submit():
+def test_submit(login, client):  # pylint: disable=unused-argument
     """Test that submitting the form works correctly."""
     data = REFUND_DICT.copy()
     data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
 
-    client = Client()
     response = client.post("/refund/new/", data=data, follow=True)
 
     assert response.status_code == 200

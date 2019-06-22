@@ -1,12 +1,10 @@
 """Module containing tests for the refund request index page."""
-from django.test import Client
 import pytest
 
 
 @pytest.mark.django_db
-def test_index():
+def test_index(login, client):  # pylint: disable=unused-argument
     """Test that the index page appears correctly."""
-    client = Client()
     response = client.get("/refund/")
 
     assert response.status_code == 200

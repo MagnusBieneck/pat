@@ -1,10 +1,10 @@
 """Module containing integration tests for the home page."""
-from django.test import Client
+import pytest
 
 
-def test_home():
+@pytest.mark.django_db
+def test_home(login, client):  # pylint: disable=unused-argument
     """Test that the home page is displayed correctly."""
-    client = Client()
     response = client.get("/")
 
     assert response.status_code == 200
