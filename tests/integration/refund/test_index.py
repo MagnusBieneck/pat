@@ -1,14 +1,11 @@
 """Module containing tests for the refund request index page."""
-from django.test import TransactionTestCase, Client
+import pytest
 
 
-class TestRefundIndex(TransactionTestCase):
-    """Wrapper class for test cases."""
+@pytest.mark.django_db
+def test_index(login, client):  # pylint: disable=unused-argument
+    """Test that the index page appears correctly."""
+    response = client.get("/refund/")
 
-    def test_index(self):  # pylint: disable=no-self-use
-        """Test that the index page appears correctly."""
-        client = Client()
-        response = client.get("/refund/")
-
-        assert response.status_code == 200
-        self.assertTemplateUsed(response, "refund/index.html")
+    assert response.status_code == 200
+    assert any([template.name == "refund/index.html" for template in response.templates])

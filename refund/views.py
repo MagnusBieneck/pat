@@ -1,5 +1,6 @@
 """Module containing views for the Refund app."""
 from datetime import date
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
@@ -7,6 +8,7 @@ from refund.forms import RefundForm
 from refund.models import Refund
 
 
+@login_required
 def index(request, context=None):
     """Overview of refund requests."""
     context = context or {}
@@ -16,6 +18,7 @@ def index(request, context=None):
     return render(request, "refund/index.html", context)
 
 
+@login_required
 def request_form(request):
     """The request form view."""
 

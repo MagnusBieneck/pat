@@ -1,14 +1,11 @@
 """Module containing integration tests for the home page."""
-from django.test import TransactionTestCase, Client
+import pytest
 
 
-class TestHome(TransactionTestCase):
-    """Wrapper class for the test cases."""
+@pytest.mark.django_db
+def test_home(login, client):  # pylint: disable=unused-argument
+    """Test that the home page is displayed correctly."""
+    response = client.get("/")
 
-    def test_home(self):
-        """Test that the home page is displayed correctly."""
-        client = Client()
-        response = client.get("/")
-
-        assert response.status_code == 200
-        self.assertTemplateUsed("templates/home.html")
+    assert response.status_code == 200
+    assert any([template.name == "home.html" for template in response.templates])
