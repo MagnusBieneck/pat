@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-17 04:46+0000\n"
+"POT-Creation-Date: 2019-06-23 18:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: pat/views.py:8 templates/base.html:18 templates/home.html:6
+#: pat/views.py:10 templates/base.html:18 templates/home.html:6
 msgid "Home"
 msgstr "Startseite"
 
@@ -58,7 +58,7 @@ msgstr "IBAN"
 msgid "Bank Account BIC"
 msgstr "BIC"
 
-#: refund/templates/refund/index.html:6 refund/views.py:15
+#: refund/templates/refund/index.html:6 refund/views.py:17
 msgid "Refund Overview"
 msgstr "Kostenerstattungen"
 
@@ -78,14 +78,53 @@ msgstr "Kostenerstattung"
 msgid "Submit"
 msgstr "Absenden"
 
-#: refund/views.py:32
+#: refund/views.py:35
 msgid "Your request has been successfully created."
 msgstr "Das Formular zur Kostenerstattung wurde erfolgreich abgesendet."
 
-#: refund/views.py:41 templates/base.html:21 templates/home.html:11
+#: refund/views.py:44 templates/base.html:21 templates/home.html:11
 msgid "Expense Refund"
 msgstr "Kostenerstattung"
+
+#: templates/base.html:24
+msgid "Logout"
+msgstr "Abmelden"
 
 #: templates/home.html:12
 msgid "Request to have your expenses refunded."
 msgstr "Kostenerstattung beantragen"
+
+#: templates/registration/base.html:6
+msgid "Login"
+msgstr "Anmelden"
+
+#: templates/registration/logged_out.html:7
+msgid "You have been successfully logged out."
+msgstr "Du wurdest erfolgreich abgemeldet."
+
+#: templates/registration/logged_out.html:10
+#: templates/registration/login.html:22
+msgid "Log in"
+msgstr "Anmelden"
+
+#: templates/registration/login.html:7
+msgid "Please sign in"
+msgstr "Bitte melde dich an"
+
+#: templates/registration/login.html:10
+msgid "Wrong username and/or password"
+msgstr "Falscher Benutzername und/oder Passwort"
+
+#: templates/registration/login.html:14 templates/registration/login.html:16
+msgid "Username"
+msgstr "Benutzername"
+
+#: templates/registration/login.html:18 templates/registration/login.html:20
+msgid "Password"
+msgstr "Passwort"
+
+#~ msgid "Sign Up"
+#~ msgstr "Registrieren"
+
+#~ msgid "Email address"
+#~ msgstr "E-Mail-Adresse"

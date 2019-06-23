@@ -1,6 +1,8 @@
 """Contains utils for the UI tests."""
+from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 
 _URL_PREFIX = "http://localhost:8000"
@@ -11,7 +13,10 @@ def get_webdriver():
     firefox_profile = webdriver.FirefoxProfile()
     firefox_profile.set_preference("intl.accept_languages", "en")
 
-    return webdriver.Firefox(firefox_profile=firefox_profile)
+    driver = webdriver.Firefox(firefox_profile=firefox_profile)
+    driver.implicitly_wait(1)
+
+    return driver
 
 
 class DjangoSeleniumTest(LiveServerTestCase):
@@ -34,3 +39,28 @@ class DjangoSeleniumTest(LiveServerTestCase):
     def element(self, id_):
         """Shortcut function for selenium.find_element_by_id()."""
         return self.selenium.find_element_by_id(id_)
+
+    def login(self):
+        """Function to log in, serves as test case at the same time to verify that login works."""
+        username = "John Doe"
+        password = "123456"
+
+        user = User.objects.create_user(username, password=password)
+        user.save()
+
+        user_object = User.objects.all()[0]
+        assert user_object
+
+        self.get("/")
+
+        username = self.element("text-username")
+        password = self.element("password-password")
+
+        assert username
+        assert password
+
+        username.send_keys("tester")
+        password.send_keys("tester")
+        password.send_keys(Keys.RETURN)
+
+        assert self.element("btn-logout")

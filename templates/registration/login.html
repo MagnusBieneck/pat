@@ -1,0 +1,24 @@
+{% extends 'registration/base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <form class="form-signin" method="post">
+      {% csrf_token %}
+      <h1 class="h3 mb-3 font-weight-normal">{% trans 'Please sign in' %}</h1>
+      {% if form.errors %}
+      <div class="alert alert-danger">
+        {% trans 'Wrong username and/or password' %}
+        {{ form.errors }}
+      </div>
+      {% endif %}
+      <label for="text-username" class="sr-only">{% trans 'Username' %}</label>
+      <input name="username" type="text" id="text-username" class="form-control"
+             placeholder="{% trans 'Username' %}" required autofocus>
+
+      <label for="password-password" class="sr-only">{% trans 'Password' %}</label>
+      <input name="password" type="password" id="password-password" class="form-control"
+             placeholder="{% trans 'Password' %}" required>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans 'Log in' %}</button>
+    </form>
+{% endblock %}
