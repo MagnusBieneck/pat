@@ -2,9 +2,9 @@
 from selenium.webdriver.support.select import Select
 
 
-def test_refund_form(webdriver):
+def test_refund_form(driver):
     """Test that the refund form works correctly."""
-    webdriver.get("http://localhost:8000/refund/new/")
+    driver.get("http://localhost:8000/refund/new/")
 
     form_content = [
         ("department_leader", "My department leader"),
@@ -17,13 +17,13 @@ def test_refund_form(webdriver):
     ]
 
     for field, content in form_content:
-        field = webdriver.find_element_by_id("id_{}".format(field))
+        field = driver.find_element_by_id("id_{}".format(field))
         field.send_keys(content)
 
-    Select(webdriver.find_element_by_id("id_refund_type")).select_by_value("cash")
+    Select(driver.find_element_by_id("id_refund_type")).select_by_value("cash")
 
-    webdriver.find_element_by_id("btn-submit").click()
+    driver.find_element_by_id("btn-submit").click()
 
-    alert = webdriver.find_element_by_id("div-alert")
+    alert = driver.find_element_by_id("div-alert")
     assert "alert-success" in alert.get_attribute("class")
     assert alert.text == "Your request has been successfully created."

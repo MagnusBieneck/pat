@@ -1,19 +1,30 @@
 """Modules containing fixtures for the UI tests."""
 import pytest
+from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from tests.ui.utils import get_webdriver
+
+
+def get_webdriver():
+    """Returns an instance of the selenium web driver."""
+    firefox_profile = webdriver.FirefoxProfile()
+    firefox_profile.set_preference("intl.accept_languages", "en")
+
+    instance = webdriver.Firefox(firefox_profile=firefox_profile)
+    instance.implicitly_wait(1)
+
+    return instance
 
 
 @pytest.fixture
-def webdriver(login=True):
+def driver(login=True):
     """Returns an instance of the Selenium web driver."""
-    driver = get_webdriver()
+    instance = get_webdriver()
 
     if login:
-        driver.get("http://localhost:8000/")
+        instance.get("http://localhost:8000/")
 
-        username = driver.find_element_by_id("text-username")
-        password = driver.find_element_by_id("password-password")
+        username = instance.find_element_by_id("text-username")
+        password = instance.find_element_by_id("password-password")
 
         assert username
         assert password
@@ -22,7 +33,7 @@ def webdriver(login=True):
         password.send_keys("tester")
         password.send_keys(Keys.RETURN)
 
-        assert driver.find_element_by_id("btn-logout")
+        assert instance.find_element_by_id("btn-logout")
 
-    yield driver
-    driver.quit()
+    yield instance
+    instance.quit()
