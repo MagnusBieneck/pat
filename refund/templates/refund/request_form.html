@@ -9,7 +9,7 @@
   <form action="/refund/new/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="{% trans 'Submit' %}" class="btn btn-primary">
+    <input type="submit" id="btn-submit" value="{% trans 'Submit' %}" class="btn btn-primary">
   </form>
 </div>
 {% endblock %}

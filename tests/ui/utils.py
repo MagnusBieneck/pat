@@ -42,15 +42,6 @@ class DjangoSeleniumTest(LiveServerTestCase):
 
     def login(self):
         """Function to log in, serves as test case at the same time to verify that login works."""
-        username = "John Doe"
-        password = "123456"
-
-        user = User.objects.create_user(username, password=password)
-        user.save()
-
-        user_object = User.objects.all()[0]
-        assert user_object
-
         self.get("/")
 
         username = self.element("text-username")
