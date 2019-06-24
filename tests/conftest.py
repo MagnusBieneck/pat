@@ -30,7 +30,13 @@ def refund_dict():
 @pytest.fixture
 def refund(refund_dict):
     """Returns a refund instance."""
-    return Refund(**refund_dict)
+    requester = User(username="requester", first_name="Re", last_name="Quester")
+    requester.save()
+
+    refund = Refund(**refund_dict)
+    refund.user = requester
+
+    return refund
 
 
 @pytest.fixture

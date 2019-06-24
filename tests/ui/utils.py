@@ -1,5 +1,4 @@
 """Contains utils for the UI tests."""
-from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
