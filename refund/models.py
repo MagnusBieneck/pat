@@ -1,5 +1,6 @@
 """Module containing models for the refund app."""
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 REFUND_TYPES = [
@@ -12,6 +13,8 @@ REFUND_TYPES = [
 
 class Refund(models.Model):
     """Model representing an expense refund form."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     date_submitted = models.DateField(_("Date Submitted"))
     department_leader = models.CharField(_("Department Leader"), max_length=128)
     account = models.CharField(_("Account"), max_length=128)
@@ -73,3 +76,18 @@ class Refund(models.Model):
             self.receipt_8_amount,
             self.receipt_9_amount
         ]))
+
+    @staticmethod
+    def get_all(current_user):
+        """Return all requests based on the current user rights.
+
+        Args:
+            current_user (django.contrib.auth.models.User): User currently logged in (from request).
+
+        Returns:
+            list[Refund]: List of 0 to n refund objects.
+        """
+        if current_user.is_staff:
+            return Refund.objects.all()  # pylint: disable=no-member
+
+        return Refund.objects.filter(user=current_user).all()  # pylint: disable=no-member

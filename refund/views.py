@@ -12,7 +12,7 @@ from refund.models import Refund
 def index(request, context=None):
     """Overview of refund requests."""
     context = context or {}
-    data = Refund.objects.all()  # pylint: disable=no-member
+    data = Refund.get_all(request.user)
 
     context.update({"title": _("Refund Overview"), "data": data})
     return render(request, "refund/index.html", context)
@@ -28,6 +28,7 @@ def request_form(request):
         if form.is_valid():
 
             form.instance.date_submitted = date.today()
+            form.instance.user = request.user
             form.save()
 
             alert = {
