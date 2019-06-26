@@ -14,4 +14,4 @@ def test_untranslated_parts(language_code):
             with open("{}/{}".format(locale_dir, file_name)) as file:
 
                 # THere is always one occurrence of an empty msgstr in the beginning of a .po file.
-                assert file.read().count('msgstr ""') == 1
+                assert file.read().count('msgstr ""') == 2

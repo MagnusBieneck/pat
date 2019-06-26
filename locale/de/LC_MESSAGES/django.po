@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-23 18:10+0000\n"
+"POT-Creation-Date: 2019-06-26 21:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,45 +18,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: pat/views.py:10 templates/base.html:18 templates/home.html:6
+#: pat/views.py:10 templates/base.html:20 templates/home.html:6
 msgid "Home"
 msgstr "Startseite"
 
-#: refund/models.py:15
+#: refund/models.py:18
 msgid "Date Submitted"
 msgstr "Absenden"
 
-#: refund/models.py:16 refund/templates/refund/index.html:11
+#: refund/models.py:19 refund/templates/refund/index.html:11
 msgid "Department Leader"
 msgstr "Bereichsleiter"
 
-#: refund/models.py:17
+#: refund/models.py:20
 msgid "Account"
 msgstr "Konto"
 
-#: refund/models.py:18 refund/templates/refund/index.html:12
+#: refund/models.py:21 refund/templates/refund/index.html:12
 msgid "Cost Centre"
 msgstr "Kostenstelle"
 
-#: refund/models.py:19 refund/templates/refund/index.html:10
+#: refund/models.py:22 refund/templates/refund/index.html:10
 msgid "Project"
 msgstr "Projekt"
 
-#: refund/models.py:21
+#: refund/models.py:24
 msgid "Refund Type"
 msgstr "Kostenerstattungen"
 
-#: refund/models.py:22
+#: refund/models.py:25
 msgid "Bank Account Owner"
 msgstr "Inhaber"
 
-#: refund/models.py:24
+#: refund/models.py:27
 msgid "Bank Account IBAN"
 msgstr "IBAN"
 
-#: refund/models.py:26
+#: refund/models.py:29
 msgid "Bank Account BIC"
 msgstr "BIC"
+
+#: refund/models.py:36 refund/models.py:38 refund/models.py:40
+#: refund/models.py:42 refund/models.py:44 refund/models.py:46
+#: refund/models.py:48 refund/models.py:50 refund/models.py:52
+#: refund/models.py:54
+msgid "Receipt"
+msgstr "Rechnung"
+
+#: refund/models.py:37 refund/models.py:39 refund/models.py:41
+#: refund/models.py:43 refund/models.py:45 refund/models.py:47
+#: refund/models.py:49 refund/models.py:51 refund/models.py:53
+#: refund/models.py:55
+msgid "Sum"
+msgstr "Betrag"
 
 #: refund/templates/refund/index.html:6 refund/views.py:17
 msgid "Refund Overview"
@@ -70,23 +84,47 @@ msgstr "Bisher wurden keine Kostenerstattungen beantragt"
 msgid "New request"
 msgstr "Neue Kostenerstattung"
 
-#: refund/templates/refund/request_form.html:7
+#: refund/templates/refund/request_form.html:8
 msgid "Expense Refund Form"
 msgstr "Kostenerstattung"
 
-#: refund/templates/refund/request_form.html:12
+#: refund/templates/refund/request_form.html:20
+msgid "Transfer refund to the bank account below"
+msgstr "Erstattungen auf folgendes Konto überweisen"
+
+#: refund/templates/refund/request_form.html:27
+msgid "Receipt upload"
+msgstr "Rechnungen hochladen"
+
+#: refund/templates/refund/request_form.html:29
+msgid ""
+"You can upload up to 10 receipts. Please keep in mind that you still have\n"
+"        to hand in the original documents for legal reasons."
+msgstr ""
+"Du kannst bis zu 10 Rechnungen hochladen. Bitte beachte, dass du aus\n"
+"\t\t rechtlichen Gründen trotzdem die Originale einreichen musst."
+
+#: refund/templates/refund/request_form.html:57
+msgid "Add another receipt"
+msgstr "Weitere Rechnung hinzufügen"
+
+#: refund/templates/refund/request_form.html:64
 msgid "Submit"
 msgstr "Absenden"
 
-#: refund/views.py:35
+#: refund/templates/refund/request_form.html:68
+msgid "Total"
+msgstr "Gesamt"
+
+#: refund/views.py:36
 msgid "Your request has been successfully created."
 msgstr "Das Formular zur Kostenerstattung wurde erfolgreich abgesendet."
 
-#: refund/views.py:44 templates/base.html:21 templates/home.html:11
+#: refund/views.py:45 templates/base.html:23 templates/home.html:11
 msgid "Expense Refund"
 msgstr "Kostenerstattung"
 
-#: templates/base.html:24
+#: templates/base.html:26
 msgid "Logout"
 msgstr "Abmelden"
 

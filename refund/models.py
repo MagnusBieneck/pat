@@ -29,27 +29,30 @@ class Refund(models.Model):
     bank_account_bic = models.CharField(_("Bank Account BIC"), blank=True, null=True,
                                         max_length=128)
 
+    file_field_attributes = {"default": None, "null": True, "blank": True}
+    decimal_field_attributes = {"max_digits": 10, "decimal_places": 2, "default": 0, "blank": True}
+
     # Receipt fields
-    receipt_0_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_0_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_1_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_1_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_2_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_2_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_3_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_3_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_4_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_4_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_5_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_5_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_6_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_6_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_7_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_7_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_8_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_8_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
-    receipt_9_picture = models.FileField(default=None, null=True, blank=True)
-    receipt_9_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
+    receipt_0_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_0_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_1_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_1_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_2_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_2_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_3_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_3_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_4_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_4_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_5_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_5_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_6_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_6_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_7_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_7_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_8_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_8_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
+    receipt_9_picture = models.FileField(_("Receipt"), **file_field_attributes)
+    receipt_9_amount = models.DecimalField(_("Sum"), **decimal_field_attributes)
 
     def __str__(self):
         """String representation of the Refund object."""
