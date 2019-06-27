@@ -4,6 +4,14 @@ import pytest
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.support.select import Select
 
+"""
+Caution: To simplify the creation of tests, the test cases in this module are allowed to depend on
+each other. E.g., one test case might insert data that is later checked in a subsequent test case.
+Therefore, be very careful when removing or reordering test cases!
+
+Concerning the execution of this module: Do not execute the test methods in parallel!
+"""
+
 
 def test_refund_form_javascript(driver):
     """Test that all the JavaScript in the form works correctly."""
@@ -47,3 +55,19 @@ def test_refund_form_submit(driver):
     alert = driver.find_element_by_id("div-alert")
     assert "alert-success" in alert.get_attribute("class")
     assert alert.text == "Your request has been successfully created."
+
+
+def test_refund_index(driver):
+    """Test that the form overview works correctly."""
+    driver.get("http://localhost:8000/refund")
+
+    assert driver.find_element_by_id("th_project").text == "Project"
+    assert driver.find_element_by_id("th_department_leader").text == "Department Leader"
+    assert driver.find_element_by_id("th_cost_centre").text == "Cost Centre"
+    assert driver.find_element_by_id("th_total_amount").text == "Total Amount"
+
+    assert driver.find_elements_by_class_name("td-project")[-1].text == "My project"
+    assert driver.find_elements_by_class_name("td-department-leader")[-1].text == \
+        "My department leader"
+    assert driver.find_elements_by_class_name("td-cost-centre")[-1].text == "My cost centre"
+    assert driver.find_elements_by_class_name("td-total-amount")[-1].text == "0.00 €"
