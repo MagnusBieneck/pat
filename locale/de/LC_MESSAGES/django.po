@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-26 21:35+0000\n"
+"POT-Creation-Date: 2019-06-26 21:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: pat/views.py:10 templates/base.html:20 templates/home.html:6
+#: pat/views.py:10 templates/base.html:19 templates/home.html:6
 msgid "Home"
 msgstr "Startseite"
 
@@ -76,11 +76,15 @@ msgstr "Betrag"
 msgid "Refund Overview"
 msgstr "Kostenerstattungen"
 
-#: refund/templates/refund/index.html:26
+#: refund/templates/refund/index.html:13
+msgid "Total Amount"
+msgstr "Gesamtbetrag"
+
+#: refund/templates/refund/index.html:28
 msgid "As of now, no requests have been filed."
 msgstr "Bisher wurden keine Kostenerstattungen beantragt"
 
-#: refund/templates/refund/index.html:32
+#: refund/templates/refund/index.html:34
 msgid "New request"
 msgstr "Neue Kostenerstattung"
 
@@ -120,11 +124,11 @@ msgstr "Gesamt"
 msgid "Your request has been successfully created."
 msgstr "Das Formular zur Kostenerstattung wurde erfolgreich abgesendet."
 
-#: refund/views.py:45 templates/base.html:23 templates/home.html:11
+#: refund/views.py:45 templates/base.html:22 templates/home.html:11
 msgid "Expense Refund"
 msgstr "Kostenerstattung"
 
-#: templates/base.html:26
+#: templates/base.html:25
 msgid "Logout"
 msgstr "Abmelden"
 
