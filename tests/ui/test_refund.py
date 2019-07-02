@@ -13,8 +13,9 @@ Concerning the execution of this module: Do not execute the test methods in para
 """
 
 
-def test_refund_form_javascript(driver):
+def test_refund_form_javascript(driver_standard):
     """Test that all the JavaScript in the form works correctly."""
+    driver = driver_standard
     driver.get("http://localhost:8000/refund/new/")
 
     # # Refund type checkbox # #
@@ -37,8 +38,9 @@ def test_refund_form_javascript(driver):
     assert driver.find_element_by_id("span_amount_total").text == "69,12"
 
 
-def test_refund_form_submit(driver):
+def test_refund_form_submit(driver_standard):
     """Test that the refund form works correctly."""
+    driver = driver_standard
     driver.get("http://localhost:8000/refund/new/")
 
     Select(driver.find_element_by_id("id_refund_type")).select_by_value("bank_account")
@@ -57,8 +59,9 @@ def test_refund_form_submit(driver):
     assert alert.text == "Your request has been successfully created."
 
 
-def test_refund_index(driver):
+def test_refund_index(driver_standard):
     """Test that the form overview works correctly."""
+    driver = driver_standard
     driver.get("http://localhost:8000/refund")
 
     assert driver.find_element_by_id("th_project").text == "Project"

@@ -73,7 +73,7 @@ test-integration: init
 
 
 test-ui: init
-	pytest --cov-config .coveragerc-ui --cov=./ --cov-report term-missing:skip-covered tests/ui --cov-fail-under=60
+	pytest --cov-config .coveragerc-ui --cov=./ --cov-report term-missing:skip-covered tests/ui
 .PHONY: test-ui
 
 

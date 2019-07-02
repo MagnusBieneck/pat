@@ -1,8 +1,9 @@
 """Module containing UI tests for the application base."""
 
 
-def test_home(driver):
+def test_home(driver_standard):
     """Test that the home page is correctly displayed when logged in."""
+    driver = driver_standard
     driver.get("http://localhost:8000/")
 
     assert driver.find_element_by_id("home_heading").text == "Process Automation Tools - Home"
@@ -11,8 +12,9 @@ def test_home(driver):
         "Request to have your expenses refunded."
 
 
-def test_navigation(driver):
+def test_navigation(driver_standard):
     """Test that the navigation bar is correctly displayed."""
+    driver = driver_standard
     driver.get("http://localhost:8000/")
 
     assert driver.find_element_by_id("btn-nav-home").text == "Home"
