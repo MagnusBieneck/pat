@@ -8,6 +8,8 @@ omit =
 	*/migrations/*
 	# Single Files
 	manage.py
+	manage_test.py
 	setup.py
+	pat/settings.py
 	pat/urls.py
 	pat/wsgi.py
