@@ -12,6 +12,9 @@
         <th scope="col" id="th_department_leader">{% trans 'Department Leader' %}</th>
         <th scope="col" id="th_cost_centre">{% trans 'Cost Centre' %}</th>
         <th scope="col" id="th_total_amount">{% trans 'Total Amount' %}</th>
+        {% if is_staff %}
+        <th scope="col" id="th_requester">{% trans 'Requester' %}</th>
+        {% endif %}
         <th scope="col"></th>
       </tr>
     </thead>
@@ -22,6 +25,9 @@
         <td class="td-department-leader">{{ row.department_leader }}</td>
         <td class="td-cost-centre">{{ row.cost_centre }}</td>
         <td class="td-total-amount">{{ row.amount|floatformat:2|intcomma }} €</td>
+        {% if is_staff %}
+        <td class="td-requester">{{ row.requester }}</td>
+        {% endif %}
         <td></td>
       </tr>
   {% empty %}

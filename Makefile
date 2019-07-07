@@ -19,6 +19,19 @@ run: init compilemessages
 .PHONY: run
 
 
+prepare-test-db: init
+	rm test.sqlite3
+	python manage_test.py makemigrations
+	python manage_test.py migrate
+	cat tests/db.sql | sqlite3 test.sqlite3
+.PHONY: prepare-test-db
+
+
+run-test: prepare-test-db
+	python manage_test.py runserver
+.PHONY: run-test
+
+
 makemigrations: init
 	python manage.py makemigrations
 .PHONY: makemigrations
@@ -60,7 +73,7 @@ test-integration: init
 
 
 test-ui: init
-	pytest --cov-config .coveragerc-ui --cov=./ --cov-report term-missing:skip-covered tests/ui --cov-fail-under=60
+	pytest --cov-config .coveragerc-ui --cov=./ --cov-report term-missing:skip-covered tests/ui
 .PHONY: test-ui
 
 

@@ -1,7 +1,7 @@
 """Module containing UI tests for the refund app."""
 import pytest
 
-from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import ElementNotInteractableException, NoSuchElementException
 from selenium.webdriver.support.select import Select
 
 """
@@ -13,8 +13,9 @@ Concerning the execution of this module: Do not execute the test methods in para
 """
 
 
-def test_refund_form_javascript(driver):
+def test_refund_form_javascript(driver_standard):
     """Test that all the JavaScript in the form works correctly."""
+    driver = driver_standard
     driver.get("http://localhost:8000/refund/new/")
 
     # # Refund type checkbox # #
@@ -37,8 +38,9 @@ def test_refund_form_javascript(driver):
     assert driver.find_element_by_id("span_amount_total").text == "69,12"
 
 
-def test_refund_form_submit(driver):
+def test_refund_form_submit(driver_standard):
     """Test that the refund form works correctly."""
+    driver = driver_standard
     driver.get("http://localhost:8000/refund/new/")
 
     Select(driver.find_element_by_id("id_refund_type")).select_by_value("bank_account")
@@ -57,17 +59,31 @@ def test_refund_form_submit(driver):
     assert alert.text == "Your request has been successfully created."
 
 
-def test_refund_index(driver):
-    """Test that the form overview works correctly."""
+def test_refund_index(driver_standard):
+    """Test that the form overview works correctly for standard users."""
+    driver = driver_standard
     driver.get("http://localhost:8000/refund")
 
     assert driver.find_element_by_id("th_project").text == "Project"
     assert driver.find_element_by_id("th_department_leader").text == "Department Leader"
     assert driver.find_element_by_id("th_cost_centre").text == "Cost Centre"
     assert driver.find_element_by_id("th_total_amount").text == "Total Amount"
+    with pytest.raises(NoSuchElementException):
+        driver.find_element_by_id("th_requester")
 
     assert driver.find_elements_by_class_name("td-project")[-1].text == "My project"
     assert driver.find_elements_by_class_name("td-department-leader")[-1].text == \
         "My department leader"
     assert driver.find_elements_by_class_name("td-cost-centre")[-1].text == "My cost centre"
     assert driver.find_elements_by_class_name("td-total-amount")[-1].text == "0.00 €"
+    assert driver.find_elements_by_class_name("td-requester") == []
+
+
+def test_refund_index_staff(driver_staff):
+    """Test that the form overview works correctly for staff users."""
+    driver = driver_staff
+    driver.get("http://localhost:8000/refund")
+
+    assert driver.find_element_by_id("th_requester").text == "Requester"
+
+    assert driver.find_elements_by_class_name("td-requester")[0].text == "Standard Tester"
