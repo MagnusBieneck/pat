@@ -14,7 +14,7 @@ def index(request, context=None):
     context = context or {}
     data = Refund.get_all(request.user)
 
-    context.update({"title": _("Refund Overview"), "data": data})
+    context.update({"title": _("Refund Overview"), "data": data, "is_staff": request.user.is_staff})
     return render(request, "refund/index.html", context)
 
 

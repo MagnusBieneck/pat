@@ -80,6 +80,12 @@ class Refund(models.Model):
             self.receipt_9_amount
         ]))
 
+    @property
+    def requester(self):
+        """Return the first and last name of the requester."""
+        # pylint: disable=no-member
+        return "{} {}".format(self.user.first_name, self.user.last_name)
+
     @staticmethod
     def get_all(current_user):
         """Return all requests based on the current user rights.

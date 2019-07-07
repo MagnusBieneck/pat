@@ -28,6 +28,7 @@ def test_refund_basic(refund, refund_dict):
 
     requester = User.objects.filter(username="requester").all()[0]  # pylint: disable=no-member
     assert refund.user == requester
+    assert refund.requester == "Re Quester"
 
 
 @pytest.mark.django_db
