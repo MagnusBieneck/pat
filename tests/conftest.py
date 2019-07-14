@@ -1,6 +1,6 @@
 """Module containing global fixtures for all types of tests."""
 import pytest
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.test import Client
 from refund.models import Refund
 
@@ -56,3 +56,12 @@ def login(client):
     assert client.login(username=username, password=password)
 
     return user
+
+
+@pytest.fixture
+def groups():
+    """Fixture creating all groups that exist by default."""
+    department_leaders = Group(id=1, name="Department Leader")
+    department_leaders.save()
+
+    return [department_leaders]
