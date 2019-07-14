@@ -12,7 +12,6 @@ class RefundForm(forms.ModelForm):
         model = Refund
         fields = [
             "department_leader",
-            "account",
             "cost_centre",
             "project",
             "refund_type",

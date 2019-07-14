@@ -7,7 +7,6 @@ from refund.models import Refund
 REFUND_DICT = {
         "date_submitted": "2019-06-06",
         "department_leader": "John Doe",
-        "account": "Dunno",
         "cost_centre": "General Expenses",
         "project": "Conference",
         "refund_type": "cash",

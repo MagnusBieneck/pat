@@ -45,7 +45,6 @@ def test_refund_form_submit(driver_standard):
 
     Select(driver.find_element_by_id("id_refund_type")).select_by_value("bank_account")
     driver.find_element_by_id("id_department_leader").send_keys("My department leader")
-    driver.find_element_by_id("id_account").send_keys("My account")
     driver.find_element_by_id("id_cost_centre").send_keys("My cost centre")
     driver.find_element_by_id("id_project").send_keys("My project")
     driver.find_element_by_id("id_bank_account_owner").send_keys("My Name")

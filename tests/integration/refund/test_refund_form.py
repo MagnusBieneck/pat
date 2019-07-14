@@ -35,7 +35,7 @@ def test_submit(login, client):  # pylint: disable=unused-argument
 
     filter_parameters = REFUND_DICT.copy()
     filter_parameters.pop("date_submitted")
-    refunds = Refund.objects.filter(department_leader="John Doe", account="Dunno",
+    refunds = Refund.objects.filter(department_leader="John Doe",
                                     cost_centre="General Expenses", project="Conference",
                                     refund_type="cash", bank_account_owner="Mr Smith")
 
