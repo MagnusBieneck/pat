@@ -17,7 +17,6 @@ class Refund(models.Model):
 
     date_submitted = models.DateField(_("Date Submitted"))
     department_leader = models.CharField(_("Department Leader"), max_length=128)
-    account = models.CharField(_("Account"), max_length=128)
     cost_centre = models.CharField(_("Cost Centre"), max_length=128)
     project = models.CharField(_("Project"), blank=True, null=True, max_length=256)
 

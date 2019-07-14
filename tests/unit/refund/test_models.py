@@ -11,7 +11,6 @@ def test_refund_basic(refund, refund_dict):
 
     assert refund.date_submitted == refund_dict["date_submitted"]
     assert refund.department_leader == refund_dict["department_leader"]
-    assert refund.account == refund_dict["account"]
     assert refund.cost_centre == refund_dict["cost_centre"]
     assert refund.project == refund_dict["project"]
     assert refund.refund_type == refund_dict["refund_type"]

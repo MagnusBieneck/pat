@@ -10,11 +10,10 @@
   <form action="/refund/new/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row">
-      <div class="col-6">{{ form.project|as_crispy_field }}</div>
-      <div class="col-6">{{ form.department_leader|as_crispy_field }}</div>
-      <div class="col-4">{{ form.refund_type|as_crispy_field }}</div>
-      <div class="col-4">{{ form.account|as_crispy_field }}</div>
+      <div class="col-4">{{ form.project|as_crispy_field }}</div>
+      <div class="col-4">{{ form.department_leader|as_crispy_field }}</div>
       <div class="col-4">{{ form.cost_centre|as_crispy_field }}</div>
+      <div class="col-12">{{ form.refund_type|as_crispy_field }}</div>
 
       <div class="col-12 bank-account-details">
         <h4 class="mt-5">{% trans 'Transfer refund to the bank account below' %}</h4>
