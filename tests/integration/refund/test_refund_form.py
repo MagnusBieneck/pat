@@ -21,12 +21,19 @@ def test_form(login, client):  # pylint: disable=unused-argument
     assert any([template.name == "refund/request_form.html" for template in response.templates])
 
 
-# pylint: disable=no-member
+# pylint: disable=no-member, unused-argument
 @pytest.mark.django_db
-def test_submit(login, client):  # pylint: disable=unused-argument
+def test_submit(login, client, department_leader, project, cost_centre):
     """Test that submitting the form works correctly."""
+    department_leader.save()
+    project.save()
+    cost_centre.save()
+
     data = REFUND_DICT.copy()
     data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
+    data["department_leader"] = department_leader.id
+    data["project"] = project.id
+    data["cost_centre"] = cost_centre.id
 
     response = client.post("/refund/new/", data=data, follow=True)
 
@@ -35,9 +42,9 @@ def test_submit(login, client):  # pylint: disable=unused-argument
 
     filter_parameters = REFUND_DICT.copy()
     filter_parameters.pop("date_submitted")
-    refunds = Refund.objects.filter(department_leader="John Doe",
-                                    cost_centre="General Expenses", project="Conference",
-                                    refund_type="cash", bank_account_owner="Mr Smith")
+    refunds = Refund.objects.filter(department_leader=department_leader, cost_centre=cost_centre,
+                                    project=project, refund_type="cash",
+                                    bank_account_owner="Mr Smith")
 
     assert len(refunds) == 1
     refund = refunds[0]

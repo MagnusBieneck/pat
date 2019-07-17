@@ -5,4 +5,9 @@ INSERT INTO auth_user VALUES(2,'pbkdf2_sha256$150000$dp8QxMrUw2hv$n7SH4FeKxQOAdD
 INSERT INTO auth_user VALUES(3,'pbkdf2_sha256$150000$UoSvch9xLEA9$9jz4VxLUH4zq6hDh/+RcdoEJl4YXrIUYTP4xY5+sFxU=',NULL,1,'tester-superuser','Superuser','',1,1,'2019-07-01 15:16:56.674990','Tester');
 
 INSERT INTO auth_group VALUES(1, 'Department Leader');
+
+INSERT INTO refund_costcentre VALUES(1, 'My cost centre');
+
+INSERT INTO refund_project VALUES(1, 'My project');
+
 COMMIT;

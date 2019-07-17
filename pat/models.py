@@ -1,8 +1,8 @@
 """Module containing extensions for core models."""
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 
 
-class PATUser:
+class PATUser:                                              # pylint: disable=too-few-public-methods
     """Extends Django User class."""
 
     @staticmethod

@@ -2,13 +2,10 @@
 import pytest
 from django.contrib.auth.models import User, Group
 from django.test import Client
-from refund.models import Refund
+from refund.models import Project, CostCentre, Refund
 
 REFUND_DICT = {
         "date_submitted": "2019-06-06",
-        "department_leader": "John Doe",
-        "cost_centre": "General Expenses",
-        "project": "Conference",
         "refund_type": "cash",
         "bank_account_owner": "Mr Smith",
         "bank_account_iban": "DE1234567890",
@@ -25,15 +22,37 @@ def refund_dict():
     return REFUND_DICT
 
 
+@pytest.fixture
+def department_leader():
+    """Fixture returning a department leader."""
+    return User(username="john_doe", first_name="John", last_name="Doe", is_staff=True)
+
+
+@pytest.fixture
+def project():
+    """Fixture returning a project."""
+    return Project(name="Marketing")
+
+
+@pytest.fixture
+def cost_centre():
+    """Fixture returning a cost centre."""
+    return CostCentre(name="General Expenses")
+
+
 # pylint: disable=redefined-outer-name
 @pytest.fixture
-def refund(refund_dict):
+def refund(refund_dict, department_leader, project, cost_centre):
     """Returns a refund instance."""
     requester = User(username="requester", first_name="Re", last_name="Quester")
     requester.save()
 
-    refund = Refund(**refund_dict)
-    refund.user = requester
+    department_leader.save()
+    project.save()
+    cost_centre.save()
+
+    refund = Refund(**refund_dict, user=requester, department_leader=department_leader,
+                    project=project, cost_centre=cost_centre)
 
     return refund
 
