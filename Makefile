@@ -20,7 +20,7 @@ run: init compilemessages
 
 
 prepare-test-db: init
-	rm test.sqlite3
+	rm test.sqlite3 || true
 	python manage_test.py makemigrations
 	python manage_test.py migrate
 	cat tests/db.sql | sqlite3 test.sqlite3
