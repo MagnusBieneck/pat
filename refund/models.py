@@ -11,14 +11,40 @@ REFUND_TYPES = [
 ]
 
 
+class Project(models.Model):
+    """Model representing the project."""
+
+    name = models.CharField(_("Name"), max_length=128)
+
+    def __str__(self):
+        """String representation of the Project object."""
+        return self.name
+
+
+class CostCentre(models.Model):
+    """Model representing the cost centre."""
+
+    name = models.CharField(_("Name"), max_length=128)
+
+    def __str__(self):
+        """String representation of the CostCentre object."""
+        return self.name
+
+
 class Refund(models.Model):
     """Model representing an expense refund form."""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="requester")
 
     date_submitted = models.DateField(_("Date Submitted"))
-    department_leader = models.CharField(_("Department Leader"), max_length=128)
-    cost_centre = models.CharField(_("Cost Centre"), max_length=128)
-    project = models.CharField(_("Project"), blank=True, null=True, max_length=256)
+    department_leader = models.ForeignKey(
+        User, on_delete=models.SET_NULL, verbose_name=_("Department Leader"), null=True,
+        related_name="department_leader", limit_choices_to={"is_staff": True})
+    cost_centre = models.ForeignKey(
+        CostCentre, on_delete=models.SET_NULL, verbose_name=_("Cost Centre"), null=True,
+        related_name="cost_centre")
+    project = models.ForeignKey(
+        Project, on_delete=models.SET_NULL, verbose_name=_("Project"), related_name="project",
+        null=True)
 
     refund_type = models.TextField(_("Refund Type"), choices=REFUND_TYPES)
     bank_account_owner = models.CharField(_("Bank Account Owner"), blank=True, null=True,

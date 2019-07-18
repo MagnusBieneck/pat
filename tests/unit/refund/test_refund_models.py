@@ -1,18 +1,19 @@
 """Module containing tests for the refund models."""
 from django.contrib.auth.models import User
 import pytest
-from refund.models import Refund
+from refund.models import Project, CostCentre, Refund
 
 
+# pylint: disable=no-member
 @pytest.mark.django_db
 def test_refund_basic(refund, refund_dict):
     """Test basic functionality of the Refund model."""
     refund.save()
 
     assert refund.date_submitted == refund_dict["date_submitted"]
-    assert refund.department_leader == refund_dict["department_leader"]
-    assert refund.cost_centre == refund_dict["cost_centre"]
-    assert refund.project == refund_dict["project"]
+    assert refund.department_leader == User.objects.filter(username="john_doe").first()
+    assert refund.cost_centre == CostCentre.objects.filter(name="General Expenses").first()
+    assert refund.project == Project.objects.filter(name="Marketing").first()
     assert refund.refund_type == refund_dict["refund_type"]
     assert refund.bank_account_owner == refund_dict["bank_account_owner"]
     assert refund.bank_account_iban == refund_dict["bank_account_iban"]

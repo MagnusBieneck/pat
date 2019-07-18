@@ -44,9 +44,9 @@ def test_refund_form_submit(driver_standard):
     driver.get("http://localhost:8000/refund/new/")
 
     Select(driver.find_element_by_id("id_refund_type")).select_by_value("bank_account")
-    driver.find_element_by_id("id_department_leader").send_keys("My department leader")
-    driver.find_element_by_id("id_cost_centre").send_keys("My cost centre")
-    driver.find_element_by_id("id_project").send_keys("My project")
+    Select(driver.find_element_by_id("id_department_leader")).select_by_value("2")
+    Select(driver.find_element_by_id("id_cost_centre")).select_by_value("1")
+    Select(driver.find_element_by_id("id_project")).select_by_value("1")
     driver.find_element_by_id("id_bank_account_owner").send_keys("My Name")
     driver.find_element_by_id("id_bank_account_iban").send_keys("DE1234567890")
     driver.find_element_by_id("id_bank_account_bic").send_keys("MYBIC1FOO")
@@ -72,7 +72,7 @@ def test_refund_index(driver_standard):
 
     assert driver.find_elements_by_class_name("td-project")[-1].text == "My project"
     assert driver.find_elements_by_class_name("td-department-leader")[-1].text == \
-        "My department leader"
+        "tester-staff"
     assert driver.find_elements_by_class_name("td-cost-centre")[-1].text == "My cost centre"
     assert driver.find_elements_by_class_name("td-total-amount")[-1].text == "0.00 €"
     assert driver.find_elements_by_class_name("td-requester") == []
