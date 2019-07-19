@@ -31,6 +31,7 @@ def test_submit(login, client, department_leader, project, cost_centre):
 
     data = REFUND_DICT.copy()
     data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
+    data["receipt_0_amount"] = 29.99
     data["department_leader"] = department_leader.id
     data["project"] = project.id
     data["cost_centre"] = cost_centre.id

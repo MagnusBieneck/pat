@@ -1,8 +1,16 @@
 """Module containing UI tests for the refund app."""
+import os
+import tempfile
 import pytest
 
+from django.conf import settings
 from selenium.common.exceptions import ElementNotInteractableException, NoSuchElementException
 from selenium.webdriver.support.select import Select
+
+TEST_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "integration", "refund",
+                         "testdata", "test_refund_form")
+TEMP_DIR = tempfile.TemporaryDirectory()
+settings.MEDIA_ROOT = TEMP_DIR.name
 
 """
 Caution: To simplify the creation of tests, the test cases in this module are allowed to depend on
@@ -39,17 +47,70 @@ def test_refund_form_javascript(driver_standard):
 
 
 def test_refund_form_submit(driver_standard):
-    """Test that the refund form works correctly."""
+    """Test that the refund form works correctly.
+
+    The fields are filled out one after another. After each field, respectively, the submit button
+    is hit to check the validation routine.
+    """
+    def check_error(element_id):
+        """Asserts that the given element has an error."""
+        assert (driver.find_element_by_id(f"error_1_{element_id}")
+                .find_element_by_tag_name("strong").text) == "This field is required."
+
     driver = driver_standard
     driver.get("http://localhost:8000/refund/new/")
 
+    driver.find_element_by_id("btn-submit").click()
+    check_error("id_refund_type")
     Select(driver.find_element_by_id("id_refund_type")).select_by_value("bank_account")
+
+    driver.find_element_by_id("btn-submit").click()
+    check_error("id_department_leader")
     Select(driver.find_element_by_id("id_department_leader")).select_by_value("2")
+
+    driver.find_element_by_id("btn-submit").click()
+    check_error("id_cost_centre")
     Select(driver.find_element_by_id("id_cost_centre")).select_by_value("1")
+
+    driver.find_element_by_id("btn-submit").click()
+    check_error("id_project")
     Select(driver.find_element_by_id("id_project")).select_by_value("1")
+
+    driver.find_element_by_id("btn-submit").click()
+    check_error("id_bank_account_owner")
     driver.find_element_by_id("id_bank_account_owner").send_keys("My Name")
-    driver.find_element_by_id("id_bank_account_iban").send_keys("DE1234567890")
-    driver.find_element_by_id("id_bank_account_bic").send_keys("MYBIC1FOO")
+
+    driver.find_element_by_id("btn-submit").click()
+    check_error("id_bank_account_iban")
+    driver.find_element_by_id("id_bank_account_iban").send_keys("abc")
+
+    driver.find_element_by_id("btn-submit").click()
+    assert (driver.find_element_by_id("error_1_id_bank_account_iban")
+            .find_element_by_tag_name("strong").text) == "A valid IBAN is required."
+    driver.find_element_by_id("id_bank_account_iban").clear()
+    driver.find_element_by_id("id_bank_account_iban").send_keys("DE02120300000000202051")
+
+    driver.find_element_by_id("btn-submit").click()
+    check_error("id_bank_account_bic")
+    driver.find_element_by_id("id_bank_account_bic").send_keys("def")
+
+    driver.find_element_by_id("btn-submit").click()
+    assert (driver.find_element_by_id("error_1_id_bank_account_bic")
+            .find_element_by_tag_name("strong").text) == "A valid BIC is required."
+    driver.find_element_by_id("id_bank_account_bic").clear()
+    driver.find_element_by_id("id_bank_account_bic").send_keys("BYLADEM1001")
+
+    driver.find_element_by_id("btn-submit").click()
+    assert (driver.find_element_by_id("error_1_id_receipt_0_picture")
+            .find_element_by_tag_name("strong").text) == "At least one receipt is required."
+    driver.find_element_by_id("id_receipt_0_amount").clear()
+    driver.find_element_by_id("id_receipt_0_amount").send_keys("29.99")
+
+    driver.find_element_by_id("btn-submit").click()
+    assert (driver.find_element_by_id("error_1_id_receipt_0_amount")
+            .find_element_by_tag_name("strong").text) == "The receipt for this amount is required."
+    driver.find_element_by_id("id_receipt_0_picture").send_keys(
+        os.path.join(TEST_DATA, "receipt_0.jpg"))
 
     driver.find_element_by_id("btn-submit").click()
 
@@ -74,7 +135,7 @@ def test_refund_index(driver_standard):
     assert driver.find_elements_by_class_name("td-department-leader")[-1].text == \
         "tester-staff"
     assert driver.find_elements_by_class_name("td-cost-centre")[-1].text == "My cost centre"
-    assert driver.find_elements_by_class_name("td-total-amount")[-1].text == "0.00 €"
+    assert driver.find_elements_by_class_name("td-total-amount")[-1].text == "29.99 €"
     assert driver.find_elements_by_class_name("td-requester") == []
 
 

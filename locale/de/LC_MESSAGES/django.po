@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-26 21:48+0000\n"
+"POT-Creation-Date: 2019-07-19 20:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,69 +22,99 @@ msgstr ""
 msgid "Home"
 msgstr "Startseite"
 
-#: refund/models.py:18
+#: refund/forms.py:41 refund/forms.py:50 refund/forms.py:59
+msgid "This field is required."
+msgstr "Dieses Feld ist zwingend erforderlich."
+
+#: refund/forms.py:48
+msgid "A valid IBAN is required."
+msgstr "Eine gültige IBAN ist zwingend erforderlich."
+
+#: refund/forms.py:57
+msgid "A valid BIC is required."
+msgstr "Eine gültige BIC ist zwingend erforderlich."
+
+#: refund/forms.py:63
+msgid "At least one receipt is required."
+msgstr "Mindestens eine Rechnung ist zwingend erforderlihc."
+
+#: refund/forms.py:67
+msgid "The amount for this receipt is required."
+msgstr "Der Betrag für diese Rechnnung ist zwingend erforderlich."
+
+#: refund/forms.py:69
+msgid "The receipt for this amount is required."
+msgstr "Die Rechnung für diesen Betrag ist zwingend erforderlich."
+
+#: refund/models.py:17 refund/models.py:27
+msgid "Name"
+msgstr "Name"
+
+#: refund/models.py:38
 msgid "Date Submitted"
 msgstr "Absenden"
 
-#: refund/models.py:19 refund/templates/refund/index.html:11
+#: refund/models.py:40 refund/templates/refund/index.html:12
 msgid "Department Leader"
 msgstr "Bereichsleiter"
 
-#: refund/models.py:20
-msgid "Account"
-msgstr "Konto"
-
-#: refund/models.py:21 refund/templates/refund/index.html:12
+#: refund/models.py:43 refund/templates/refund/index.html:13
 msgid "Cost Centre"
 msgstr "Kostenstelle"
 
-#: refund/models.py:22 refund/templates/refund/index.html:10
+#: refund/models.py:46 refund/templates/refund/index.html:11
 msgid "Project"
 msgstr "Projekt"
 
-#: refund/models.py:24
+#: refund/models.py:49
 msgid "Refund Type"
 msgstr "Kostenerstattungen"
 
-#: refund/models.py:25
+#: refund/models.py:50
 msgid "Bank Account Owner"
 msgstr "Inhaber"
 
-#: refund/models.py:27
+#: refund/models.py:52
 msgid "Bank Account IBAN"
 msgstr "IBAN"
 
-#: refund/models.py:29
+#: refund/models.py:54
 msgid "Bank Account BIC"
 msgstr "BIC"
 
-#: refund/models.py:36 refund/models.py:38 refund/models.py:40
-#: refund/models.py:42 refund/models.py:44 refund/models.py:46
-#: refund/models.py:48 refund/models.py:50 refund/models.py:52
-#: refund/models.py:54
+#: refund/models.py:61 refund/models.py:63 refund/models.py:65
+#: refund/models.py:67 refund/models.py:69 refund/models.py:71
+#: refund/models.py:73 refund/models.py:75 refund/models.py:77
+#: refund/models.py:79
 msgid "Receipt"
 msgstr "Rechnung"
 
-#: refund/models.py:37 refund/models.py:39 refund/models.py:41
-#: refund/models.py:43 refund/models.py:45 refund/models.py:47
-#: refund/models.py:49 refund/models.py:51 refund/models.py:53
-#: refund/models.py:55
+#: refund/models.py:62 refund/models.py:64 refund/models.py:66
+#: refund/models.py:68 refund/models.py:70 refund/models.py:72
+#: refund/models.py:74 refund/models.py:76 refund/models.py:78
+#: refund/models.py:80
 msgid "Sum"
 msgstr "Betrag"
 
-#: refund/templates/refund/index.html:6 refund/views.py:17
+#: refund/templates/refund/index.html:7 refund/views.py:17
 msgid "Refund Overview"
 msgstr "Kostenerstattungen"
 
-#: refund/templates/refund/index.html:13
+#: refund/templates/refund/index.html:14
 msgid "Total Amount"
 msgstr "Gesamtbetrag"
 
-#: refund/templates/refund/index.html:28
+#: refund/templates/refund/index.html:16
+#, fuzzy
+#| msgid "New request"
+msgid "Requester"
+msgstr "Neue Kostenerstattung"
+
+#: refund/templates/refund/index.html:35
 msgid "As of now, no requests have been filed."
 msgstr "Bisher wurden keine Kostenerstattungen beantragt"
 
-#: refund/templates/refund/index.html:34
+#: refund/templates/refund/index.html:41
 msgid "New request"
 msgstr "Neue Kostenerstattung"
 
@@ -92,15 +122,15 @@ msgstr "Neue Kostenerstattung"
 msgid "Expense Refund Form"
 msgstr "Kostenerstattung"
 
-#: refund/templates/refund/request_form.html:20
+#: refund/templates/refund/request_form.html:19
 msgid "Transfer refund to the bank account below"
 msgstr "Erstattungen auf folgendes Konto überweisen"
 
-#: refund/templates/refund/request_form.html:27
+#: refund/templates/refund/request_form.html:26
 msgid "Receipt upload"
 msgstr "Rechnungen hochladen"
 
-#: refund/templates/refund/request_form.html:29
+#: refund/templates/refund/request_form.html:28
 msgid ""
 "You can upload up to 10 receipts. Please keep in mind that you still have\n"
 "        to hand in the original documents for legal reasons."
@@ -108,15 +138,15 @@ msgstr ""
 "Du kannst bis zu 10 Rechnungen hochladen. Bitte beachte, dass du aus\n"
 "\t\t rechtlichen Gründen trotzdem die Originale einreichen musst."
 
-#: refund/templates/refund/request_form.html:57
+#: refund/templates/refund/request_form.html:56
 msgid "Add another receipt"
 msgstr "Weitere Rechnung hinzufügen"
 
-#: refund/templates/refund/request_form.html:64
+#: refund/templates/refund/request_form.html:63
 msgid "Submit"
 msgstr "Absenden"
 
-#: refund/templates/refund/request_form.html:68
+#: refund/templates/refund/request_form.html:67
 msgid "Total"
 msgstr "Gesamt"
 
@@ -164,6 +194,9 @@ msgstr "Benutzername"
 #: templates/registration/login.html:18 templates/registration/login.html:20
 msgid "Password"
 msgstr "Passwort"
+
+#~ msgid "Account"
+#~ msgstr "Konto"
 
 #~ msgid "Sign Up"
 #~ msgstr "Registrieren"

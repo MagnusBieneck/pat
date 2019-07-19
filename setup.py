@@ -15,6 +15,7 @@ VERSION = "0.0.1"
 # What packages are required for this module to be executed?
 REQUIRED = [
 	"django-crispy-forms >= 1.7",
+	"django-localflavor ~= 2.2",
 	"Django >= 2.1",
 	"gunicorn >= 19.9.0",
 	"python-gettext >= 4.0",
