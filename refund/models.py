@@ -54,6 +54,10 @@ class Refund(models.Model):
     bank_account_bic = models.CharField(_("Bank Account BIC"), blank=True, null=True,
                                         max_length=128)
 
+    # Approval workflow
+    approved = models.DateTimeField(null=True, default=None)
+    processed = models.DateTimeField(null=True, default=None)
+
     file_field_attributes = {"default": None, "null": True, "blank": True}
     decimal_field_attributes = {"max_digits": 10, "decimal_places": 2, "default": 0, "blank": True}
 
