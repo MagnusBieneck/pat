@@ -48,14 +48,27 @@ def test_get_all(refund_dict):
     user_one.save()
     user_two = User(username="user_two")
     user_two.save()
-    staff_user = User(username="staff_user", is_staff=True)
-    staff_user.save()
+    staff_user_one = User(username="staff_user_one", is_staff=True)
+    staff_user_one.save()
+    staff_user_two = User(username="staff_user_two", is_staff=True)
+    staff_user_two.save()
+    super_user = User(username="super_user", is_superuser=True)
+    super_user.save()
 
-    request_one = Refund(**refund_dict, user=user_one)
+    request_one = Refund(**refund_dict, user=user_one, department_leader=staff_user_one)
     request_one.save()
-    request_two = Refund(**refund_dict, user=user_two)
+    request_two = Refund(**refund_dict, user=user_two, department_leader=staff_user_two)
     request_two.save()
+    request_three = Refund(**refund_dict, user=staff_user_one, department_leader=staff_user_one)
+    request_three.save()
+    request_four = Refund(**refund_dict, user=staff_user_two, department_leader=staff_user_two)
+    request_four.save()
 
+    # Check requests before any processing
     assert list(Refund.get_all(user_one)) == [request_one]
     assert list(Refund.get_all(user_two)) == [request_two]
-    assert list(Refund.get_all(staff_user)) == [request_one, request_two]
+    assert list(Refund.get_all(staff_user_one)) == [request_one, request_three]
+    assert list(Refund.get_all(staff_user_two)) == [request_two, request_four]
+    assert list(Refund.get_all(super_user)) == []
+
+    # TO DO: Check requests after processing

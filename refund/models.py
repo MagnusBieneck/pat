@@ -1,5 +1,6 @@
 """Module containing models for the refund app."""
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
@@ -125,7 +126,14 @@ class Refund(models.Model):
         Returns:
             list[Refund]: List of 0 to n refund objects.
         """
+        if current_user.is_superuser:
+            # pylint: disable=no-member
+            return Refund.objects.filter(approved__isnull=False).order_by("processed").all()
+
         if current_user.is_staff:
-            return Refund.objects.all()  # pylint: disable=no-member
+            # pylint: disable=no-member
+            return Refund.objects.filter(
+                Q(department_leader=current_user) | Q(user=current_user)
+            ).order_by("approved").all()
 
         return Refund.objects.filter(user=current_user).all()  # pylint: disable=no-member
