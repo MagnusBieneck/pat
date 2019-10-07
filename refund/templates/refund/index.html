@@ -32,7 +32,7 @@
       </tr>
   {% empty %}
       <tr>
-        <td colspan="4">{% trans 'As of now, no requests have been filed.' %}</td>
+        <td colspan="{% if is_staff %}6{% else %}5{% endif%}">{% trans 'As of now, no requests have been filed.' %}</td>
       </tr>
   {% endfor %}
     </tbody>
