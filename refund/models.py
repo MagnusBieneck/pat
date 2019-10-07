@@ -116,6 +116,16 @@ class Refund(models.Model):
         # pylint: disable=no-member
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
+    @property
+    def is_approved(self):
+        """Return true if the request has been approved, false if not."""
+        return self.approved is not None
+
+    @property
+    def is_processed(self):
+        """Return true if the request has been processed, false if not."""
+        return self.processed is not None
+
     @staticmethod
     def get_all(current_user):
         """Return all requests based on the current user rights.
