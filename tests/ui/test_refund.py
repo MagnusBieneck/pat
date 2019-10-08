@@ -139,11 +139,49 @@ def test_refund_index(driver_standard):
     assert driver.find_elements_by_class_name("td-requester") == []
 
 
-def test_refund_index_staff(driver_staff):
-    """Test that the form overview works correctly for staff users."""
+def test_refund_index_staff_unapproved(driver_staff):
+    """Test that the form overview works correctly for staff users with unapproved request."""
     driver = driver_staff
     driver.get("http://localhost:8000/refund")
 
     assert driver.find_element_by_id("th_requester").text == "Requester"
 
     assert driver.find_elements_by_class_name("td-requester")[0].text == "Standard Tester"
+    assert (driver.find_elements_by_class_name("td-approved")[0]
+            .find_element_by_tag_name("span").text) == "Pending"
+    assert (driver.find_elements_by_class_name("td-processed")[0]
+            .find_element_by_tag_name("span").text) == "Pending"
+
+
+def test_refund_form_approve(driver_staff):
+    """Test that the form approval works correctly for staff users."""
+    driver = driver_staff
+    driver.get("http://localhost:8000/refund")
+
+    # In overview page, click on the 'Edit' button
+    (driver.find_elements_by_class_name("td-action")[0]
+     .find_element_by_class_name("btn-edit").click())
+
+    # In edit page, click on the 'Approve' button
+    driver.find_element_by_id("a-approve").click()
+
+    alert = driver.find_element_by_id("div-alert")
+    assert "alert-success" in alert.get_attribute("class")
+    assert alert.text == "The request has been successfully approved."
+
+
+def test_refund_form_process(driver_superuser):
+    """Test that the form processing works correctly for super users."""
+    driver = driver_superuser
+    driver.get("http://localhost:8000/refund")
+
+    # In overview page, click on the 'Edit' button
+    (driver.find_elements_by_class_name("td-action")[0]
+     .find_element_by_class_name("btn-edit").click())
+
+    # In edit page, click on the 'Process' button
+    driver.find_element_by_id("a-process").click()
+
+    alert = driver.find_element_by_id("div-alert")
+    assert "alert-success" in alert.get_attribute("class")
+    assert alert.text == "The request has been successfully processed."
