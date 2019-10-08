@@ -60,7 +60,19 @@
 
     <div class="row mt-5">
       <div class="col-8">
+        {% if edit %}
+          {% if approval_right and not approved %}
+            <a class="btn btn-success" href="/refund/approve/{{ request_id }}" id="a-approve">{% trans 'Approve' %}</a>
+          {% elif process_right %}
+            <a class="btn btn-success" href="/refund/process/{{ request_id }}" id="a-process">{% trans 'Mark processed' %}</a>
+          {% else %}
+            <div class="alert alert-info">
+              {% blocktrans %}No actions can be performed at the moment.{% endblocktrans %}
+            </div>
+          {% endif %}
+        {% else %}
         <input type="submit" id="btn-submit" value="{% trans 'Submit' %}" class="btn btn-primary">
+        {% endif %}
       </div>
       <div class="col-4">
         <div class="alert alert-success">

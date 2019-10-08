@@ -15,6 +15,8 @@
         {% if is_staff %}
         <th scope="col" id="th_requester">{% trans 'Requester' %}</th>
         {% endif %}
+        <th scope="col" id="th_approved">{% trans 'Approved' %}</th>
+        <th scope="col" id="th_processed">{% trans 'Processed' %}</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -28,11 +30,27 @@
         {% if is_staff %}
         <td class="td-requester">{{ row.requester }}</td>
         {% endif %}
-        <td></td>
+        <td class="td-approved">
+          {% if row.is_approved %}
+          <span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="{% trans 'This request has been approved.' %}">{% trans 'Approved' %}</span>
+          {% else %}
+          <span class="badge badge-warning" data-toggle="tooltip" data-placement="top" title="{% trans 'This request has not yet been approved.' %}">{% trans 'Pending' %}</span>
+          {% endif %}
+        </td>
+        <td class="td-processed">
+          {% if row.is_processed %}
+          <span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="{% trans 'The refund has been performed.' %}">{% trans 'Processed' %}</span>
+          {% else %}
+          <span class="badge badge-warning" data-toggle="tooltip" data-placement="top" title="{% trans 'This request has not yet been processed.' %}">{% trans 'Pending' %}</span>
+          {% endif %}
+        </td>
+        <td class="td-action">
+          <a class="btn btn-primary btn-sm btn-edit" href="/refund/edit/{{ row.id }}" data-toggle="tooltip" data-placement="top" title="{% trans 'Approve and/or process this request.' %}">{% trans 'Edit' %}</a>
+        </td>
       </tr>
   {% empty %}
       <tr>
-        <td colspan="4">{% trans 'As of now, no requests have been filed.' %}</td>
+        <td colspan="{% if is_staff %}8{% else %}7{% endif%}">{% trans 'As of now, no requests have been filed.' %}</td>
       </tr>
   {% endfor %}
     </tbody>
@@ -40,4 +58,9 @@
 
   <a href="/refund/new/" class="btn btn-success">{% trans 'New request' %}</a>
 </div>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 {% endblock %}

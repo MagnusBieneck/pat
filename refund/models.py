@@ -1,5 +1,6 @@
 """Module containing models for the refund app."""
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
@@ -53,6 +54,10 @@ class Refund(models.Model):
                                          max_length=128)
     bank_account_bic = models.CharField(_("Bank Account BIC"), blank=True, null=True,
                                         max_length=128)
+
+    # Approval workflow
+    approved = models.DateTimeField(null=True, default=None)
+    processed = models.DateTimeField(null=True, default=None)
 
     file_field_attributes = {"default": None, "null": True, "blank": True}
     decimal_field_attributes = {"max_digits": 10, "decimal_places": 2, "default": 0, "blank": True}
@@ -111,6 +116,16 @@ class Refund(models.Model):
         # pylint: disable=no-member
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
+    @property
+    def is_approved(self):
+        """Return true if the request has been approved, false if not."""
+        return self.approved is not None
+
+    @property
+    def is_processed(self):
+        """Return true if the request has been processed, false if not."""
+        return self.processed is not None
+
     @staticmethod
     def get_all(current_user):
         """Return all requests based on the current user rights.
@@ -121,7 +136,14 @@ class Refund(models.Model):
         Returns:
             list[Refund]: List of 0 to n refund objects.
         """
+        if current_user.is_superuser:
+            # pylint: disable=no-member
+            return Refund.objects.filter(approved__isnull=False).order_by("processed").all()
+
         if current_user.is_staff:
-            return Refund.objects.all()  # pylint: disable=no-member
+            # pylint: disable=no-member
+            return Refund.objects.filter(
+                Q(department_leader=current_user) | Q(user=current_user)
+            ).order_by("approved").all()
 
         return Refund.objects.filter(user=current_user).all()  # pylint: disable=no-member

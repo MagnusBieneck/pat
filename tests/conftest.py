@@ -63,18 +63,36 @@ def client():
     return _CLIENT
 
 
-@pytest.fixture
-def login(client):
-    """Login as a user."""
+def _login(client, staff=False, superuser=False):
+    """Helper function to create a user and log in."""
     username = "John Doe"
     password = "123456"
 
-    user = User.objects.create_user(username, password=password)
+    user = User.objects.create_user(username, password=password, is_staff=staff,
+                                    is_superuser=superuser)
     user.save()
 
     assert client.login(username=username, password=password)
 
     return user
+
+
+@pytest.fixture
+def login(client):
+    """Login as a user."""
+    return _login(client)
+
+
+@pytest.fixture
+def login_staff(client):
+    """Login as a staff member."""
+    return _login(client, staff=True)
+
+
+@pytest.fixture
+def login_superuser(client):
+    """Login as a superuser."""
+    return _login(client, superuser=True)
 
 
 @pytest.fixture

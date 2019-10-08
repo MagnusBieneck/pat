@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-19 20:42+0000\n"
+"POT-Creation-Date: 2019-10-07 18:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: pat/views.py:10 templates/base.html:19 templates/home.html:6
+#: pat/views.py:10 templates/base.html:21 templates/home.html:6
 msgid "Home"
 msgstr "Startseite"
 
@@ -38,61 +38,61 @@ msgstr "Eine gültige BIC ist zwingend erforderlich."
 msgid "At least one receipt is required."
 msgstr "Mindestens eine Rechnung ist zwingend erforderlihc."
 
-#: refund/forms.py:67
+#: refund/forms.py:68
 msgid "The amount for this receipt is required."
 msgstr "Der Betrag für diese Rechnnung ist zwingend erforderlich."
 
-#: refund/forms.py:69
+#: refund/forms.py:70
 msgid "The receipt for this amount is required."
 msgstr "Die Rechnung für diesen Betrag ist zwingend erforderlich."
 
-#: refund/models.py:17 refund/models.py:27
+#: refund/models.py:18 refund/models.py:28
 msgid "Name"
 msgstr "Name"
 
-#: refund/models.py:38
+#: refund/models.py:39
 msgid "Date Submitted"
 msgstr "Absenden"
 
-#: refund/models.py:40 refund/templates/refund/index.html:12
+#: refund/models.py:41 refund/templates/refund/index.html:12
 msgid "Department Leader"
 msgstr "Bereichsleiter"
 
-#: refund/models.py:43 refund/templates/refund/index.html:13
+#: refund/models.py:44 refund/templates/refund/index.html:13
 msgid "Cost Centre"
 msgstr "Kostenstelle"
 
-#: refund/models.py:46 refund/templates/refund/index.html:11
+#: refund/models.py:47 refund/templates/refund/index.html:11
 msgid "Project"
 msgstr "Projekt"
 
-#: refund/models.py:49
+#: refund/models.py:50
 msgid "Refund Type"
 msgstr "Kostenerstattungen"
 
-#: refund/models.py:50
+#: refund/models.py:51
 msgid "Bank Account Owner"
 msgstr "Inhaber"
 
-#: refund/models.py:52
+#: refund/models.py:53
 msgid "Bank Account IBAN"
 msgstr "IBAN"
 
-#: refund/models.py:54
+#: refund/models.py:55
 msgid "Bank Account BIC"
 msgstr "BIC"
 
-#: refund/models.py:61 refund/models.py:63 refund/models.py:65
-#: refund/models.py:67 refund/models.py:69 refund/models.py:71
-#: refund/models.py:73 refund/models.py:75 refund/models.py:77
-#: refund/models.py:79
+#: refund/models.py:66 refund/models.py:68 refund/models.py:70
+#: refund/models.py:72 refund/models.py:74 refund/models.py:76
+#: refund/models.py:78 refund/models.py:80 refund/models.py:82
+#: refund/models.py:84
 msgid "Receipt"
 msgstr "Rechnung"
 
-#: refund/models.py:62 refund/models.py:64 refund/models.py:66
-#: refund/models.py:68 refund/models.py:70 refund/models.py:72
-#: refund/models.py:74 refund/models.py:76 refund/models.py:78
-#: refund/models.py:80
+#: refund/models.py:67 refund/models.py:69 refund/models.py:71
+#: refund/models.py:73 refund/models.py:75 refund/models.py:77
+#: refund/models.py:79 refund/models.py:81 refund/models.py:83
+#: refund/models.py:85
 msgid "Sum"
 msgstr "Betrag"
 
@@ -105,16 +105,42 @@ msgid "Total Amount"
 msgstr "Gesamtbetrag"
 
 #: refund/templates/refund/index.html:16
-#, fuzzy
-#| msgid "New request"
 msgid "Requester"
-msgstr "Neue Kostenerstattung"
+msgstr "Antragsteller"
+
+#: refund/templates/refund/index.html:18 refund/templates/refund/index.html:35
+msgid "Approved"
+msgstr "Genehmigt"
+
+#: refund/templates/refund/index.html:19
+msgid "Processed"
+msgstr "Bearbeitet"
 
 #: refund/templates/refund/index.html:35
+msgid "This request has been approved."
+msgstr "Dieser Antrag wurde genehmigt."
+
+#: refund/templates/refund/index.html:37
+msgid "This request has not yet been approved."
+msgstr "Dieser Antrag wurde noch nicht genehmigt."
+
+#: refund/templates/refund/index.html:37 refund/templates/refund/index.html:44
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: refund/templates/refund/index.html:42
+msgid "The refund has been performed."
+msgstr "Die Rückzahlung wurde getätigt."
+
+#: refund/templates/refund/index.html:44
+msgid "This request has not yet been processed."
+msgstr "Der Antrag wurde noch nicht bearbeitet."
+
+#: refund/templates/refund/index.html:51
 msgid "As of now, no requests have been filed."
 msgstr "Bisher wurden keine Kostenerstattungen beantragt"
 
-#: refund/templates/refund/index.html:41
+#: refund/templates/refund/index.html:57
 msgid "New request"
 msgstr "Neue Kostenerstattung"
 
@@ -154,11 +180,11 @@ msgstr "Gesamt"
 msgid "Your request has been successfully created."
 msgstr "Das Formular zur Kostenerstattung wurde erfolgreich abgesendet."
 
-#: refund/views.py:45 templates/base.html:22 templates/home.html:11
+#: refund/views.py:45 templates/base.html:24 templates/home.html:11
 msgid "Expense Refund"
 msgstr "Kostenerstattung"
 
-#: templates/base.html:25
+#: templates/base.html:27
 msgid "Logout"
 msgstr "Abmelden"
 
