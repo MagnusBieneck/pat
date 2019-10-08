@@ -30,6 +30,11 @@ class RefundForm(forms.ModelForm):
 
         localized_fields = "__all__"
 
+    def disable(self):
+        """Make all fields disabled (=read-only)."""
+        for _, field in self.fields.items():
+            field.disabled = True
+
     def clean(self):
         """Clean and validate the form data."""
         data = super().clean()

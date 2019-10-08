@@ -20,7 +20,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from pat.views import home
-from refund.views import index, request_form
+from refund.views import index, request_form, request_edit, request_approve, request_process
 
 # pylint: disable=invalid-name
 urlpatterns = [
@@ -29,6 +29,9 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view()),
     path('refund/', index, name='index'),
     path('refund/new/', request_form, name='request_form'),
+    path('refund/edit/<int:request_id>/', request_edit, name='request_edit'),
+    path('refund/approve/<int:request_id>/', request_approve, name='request_approve'),
+    path('refund/process/<int:request_id>/', request_process, name='request_process'),
     path('admin/', admin.site.urls)
 ]
 
