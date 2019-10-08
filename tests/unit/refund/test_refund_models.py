@@ -1,4 +1,6 @@
 """Module containing tests for the refund models."""
+from datetime import datetime
+
 from django.contrib.auth.models import User
 import pytest
 from refund.models import Project, CostCentre, Refund
@@ -29,6 +31,14 @@ def test_refund_basic(refund, refund_dict):
     requester = User.objects.filter(username="requester").all()[0]  # pylint: disable=no-member
     assert refund.user == requester
     assert refund.requester == "Re Quester"
+
+    assert refund.is_approved is False
+    refund.approved = datetime.now()
+    assert refund.is_approved is True
+
+    assert refund.is_processed is False
+    refund.processed = datetime.now()
+    assert refund.is_processed is True
 
 
 @pytest.mark.django_db
