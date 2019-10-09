@@ -138,7 +138,9 @@ class Refund(models.Model):
         """
         if current_user.is_superuser:
             # pylint: disable=no-member
-            return Refund.objects.filter(approved__isnull=False).order_by("processed").all()
+            return Refund.objects.filter(
+                Q(approved__isnull=False) | Q(user=current_user)
+            ).order_by("processed").all()
 
         if current_user.is_staff:
             # pylint: disable=no-member
