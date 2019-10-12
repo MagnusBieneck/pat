@@ -4,6 +4,7 @@ import os
 import tempfile
 import pytest
 
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.auth.models import User
 from refund.models import Refund, Project, CostCentre
@@ -229,3 +230,36 @@ def test_process_no_superuser(login_staff, department_leader, client):
     assert "You cannot approve any requests as you are no finance leader." in str(response.content)
 
     assert not Refund.objects.first().is_processed
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("existing_requests,expected_content", [
+    ([("foo", "ABCDEFG", "MB1234")],
+     ("foo", "ABCDEFG", "MB1234")),
+])  # pylint: disable=too-many-arguments
+def test_account_prefill(login, existing_requests, expected_content, project, cost_centre, client):
+    """Test that pre-filling bank account information works correctly."""
+    cost_centre.save()
+    project.save()
+
+    for owner, iban, bic in existing_requests:
+        data = REFUND_DICT.copy()
+        data["receipt_0_amount"] = 29.99
+        data["department_leader"] = login
+        data["user"] = login
+        data["project"] = project
+        data["cost_centre"] = cost_centre
+        data["refund_type"] = "bank_account"
+        data["bank_account_owner"] = owner
+        data["bank_account_iban"] = iban
+        data["bank_account_bic"] = bic
+        refund = Refund(**data)
+        refund.save()
+
+    response = client.get("/refund/new/", follow=True)
+    html = BeautifulSoup(response.content)
+
+    owner, iban, bic = expected_content
+    assert html.find("input", id="id_bank_account_owner").get("value") == owner
+    assert html.find("input", id="id_bank_account_iban").get("value") == iban
+    assert html.find("input", id="id_bank_account_bic").get("value") == bic
