@@ -84,3 +84,36 @@ def test_get_all(refund_dict):
     assert list(Refund.get_all(super_user)) == [request_five]
 
     # TO DO: Check requests after processing
+
+
+@pytest.mark.django_db
+def test_get_latest_account_info():
+    """Test that the correct account info are returned based on the latest request."""
+    user = User(username="user")
+    user.save()
+
+    assert Refund.get_latest_account_info(user) is None
+
+    account_info_one = {
+        "bank_account_owner": "Mr Smith",
+        "bank_account_iban": "DE1234567890",
+        "bank_account_bic": "ABCDEFG1HIJ"
+    }
+
+    Refund.objects.create(date_submitted="2019-10-01", **account_info_one,
+                          refund_type="bank_account", user=user)
+    assert Refund.get_latest_account_info(user) == tuple(account_info_one.values())
+
+    Refund.objects.create(date_submitted="2019-10-02",
+                          refund_type="cash", user=user)
+    assert Refund.get_latest_account_info(user) == tuple(account_info_one.values())
+
+    account_info_two = {
+        "bank_account_owner": "Mr Wilson",
+        "bank_account_iban": "DE0987654321",
+        "bank_account_bic": "JIHGFEDCBA"
+    }
+
+    Refund.objects.create(date_submitted="2019-10-03", **account_info_two,
+                          refund_type="bank_account", user=user)
+    assert Refund.get_latest_account_info(user) == tuple(account_info_two.values())

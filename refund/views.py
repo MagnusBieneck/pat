@@ -45,7 +45,15 @@ def request_form(request):
 
     else:
 
-        form = RefundForm()
+        initial = {}
+        bank_account_info = Refund.get_latest_account_info(request.user)
+        if bank_account_info:
+            owner, iban, bic = bank_account_info
+            initial["bank_account_owner"] = owner
+            initial["bank_account_iban"] = iban
+            initial["bank_account_bic"] = bic
+
+        form = RefundForm(initial=initial)
 
     return render(request, "refund/request_form.html", {"form": form, "title": _("Expense Refund")})
 
