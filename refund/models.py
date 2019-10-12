@@ -149,3 +149,27 @@ class Refund(models.Model):
             ).order_by("approved").all()
 
         return Refund.objects.filter(user=current_user).all()  # pylint: disable=no-member
+
+    @staticmethod
+    def get_latest_account_info(current_user):
+        """Return the bank account info (Owner, IBAN and BIC) based on the latest request.
+
+        Args:
+            current_user (django.contrib.auth.models.User): User currently logged in (from request).
+
+        Returns:
+            tuple[str]: owner, IBAN, BIC or None
+        """
+        result = Refund.objects.filter(  # pylint: disable=no-member
+            Q(refund_type="bank_account") & Q(user=current_user)
+        ).order_by("-date_submitted").all()
+
+        if len(result) == 0:
+            return None
+
+        request = result[0]
+        return (
+            request.bank_account_owner,
+            request.bank_account_iban,
+            request.bank_account_bic,
+        )
