@@ -4,52 +4,52 @@
 
 {% block content %}
 <script type="text/javascript" src="/static/js/refund/request_form.js"></script>
-<div class="col-8 offset-2">
+<div class="col-md-8 offset-md-2 col-sm offset-sm-0">
   <h1 class="mt-2">{% trans 'Expense Refund Form' %}</h1>
   <hr class="mt-0 mr-4" />
   <form action="/refund/new/" method="post" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
     <div class="row">
-      <div class="col-4">{{ form.project|as_crispy_field }}</div>
-      <div class="col-4">{{ form.department_leader|as_crispy_field }}</div>
-      <div class="col-4">{{ form.cost_centre|as_crispy_field }}</div>
-      <div class="col-12">{{ form.refund_type|as_crispy_field }}</div>
+      <div class="col-md-4">{{ form.project|as_crispy_field }}</div>
+      <div class="col-md-4">{{ form.department_leader|as_crispy_field }}</div>
+      <div class="col-md-4">{{ form.cost_centre|as_crispy_field }}</div>
+      <div class="col-md-12">{{ form.refund_type|as_crispy_field }}</div>
 
-      <div class="col-12 bank-account-details">
+      <div class="col-md-12 bank-account-details">
         <h4 class="mt-5">{% trans 'Transfer refund to the bank account below' %}</h4>
       </div>
-      <div class="col-12 bank-account-details">{{ form.bank_account_owner|as_crispy_field }}</div>
-      <div class="col-8 bank-account-details">{{ form.bank_account_iban|as_crispy_field }}</div>
-      <div class="col-4 bank-account-details">{{ form.bank_account_bic|as_crispy_field }}</div>
+      <div class="col-md-12 bank-account-details">{{ form.bank_account_owner|as_crispy_field }}</div>
+      <div class="col-md-8 bank-account-details">{{ form.bank_account_iban|as_crispy_field }}</div>
+      <div class="col-md-4 bank-account-details">{{ form.bank_account_bic|as_crispy_field }}</div>
 
-      <div class="col-12">
+      <div class="col-md-12">
         <h4 class="mt-5">{% trans 'Receipt upload' %}</h4>
         <div class="alert alert-info">
           {% blocktrans %}You can upload up to 10 receipts.{% endblocktrans %}
         </div>
       </div>
 
-      <div class="col-8 receipt-0">{{ form.receipt_0_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-0">{{ form.receipt_0_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-1">{{ form.receipt_1_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-1">{{ form.receipt_1_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-2">{{ form.receipt_2_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-2">{{ form.receipt_2_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-3">{{ form.receipt_3_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-3">{{ form.receipt_3_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-4">{{ form.receipt_4_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-4">{{ form.receipt_4_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-5">{{ form.receipt_5_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-5">{{ form.receipt_5_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-6">{{ form.receipt_6_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-6">{{ form.receipt_6_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-7">{{ form.receipt_7_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-7">{{ form.receipt_7_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-8">{{ form.receipt_8_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-8">{{ form.receipt_8_amount|as_crispy_field }}</div>
-      <div class="col-8 receipt-9">{{ form.receipt_9_picture|as_crispy_field }}</div>
-      <div class="col-4 receipt-9">{{ form.receipt_9_amount|as_crispy_field }}</div>
-      <div class="col-12">
+      <div class="col-md-8 receipt-0">{{ form.receipt_0_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-0">{{ form.receipt_0_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-1">{{ form.receipt_1_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-1">{{ form.receipt_1_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-2">{{ form.receipt_2_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-2">{{ form.receipt_2_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-3">{{ form.receipt_3_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-3">{{ form.receipt_3_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-4">{{ form.receipt_4_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-4">{{ form.receipt_4_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-5">{{ form.receipt_5_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-5">{{ form.receipt_5_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-6">{{ form.receipt_6_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-6">{{ form.receipt_6_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-7">{{ form.receipt_7_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-7">{{ form.receipt_7_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-8">{{ form.receipt_8_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-8">{{ form.receipt_8_amount|as_crispy_field }}</div>
+      <div class="col-md-8 receipt-9">{{ form.receipt_9_picture|as_crispy_field }}</div>
+      <div class="col-md-4 receipt-9">{{ form.receipt_9_amount|as_crispy_field }}</div>
+      <div class="col-md-12">
         <a href="javascript: showNextReceipt()" id="btn_show_next_receipt"
            class="btn btn-primary btn-sm right float-right">
           {% trans 'Add another receipt' %}
@@ -58,7 +58,7 @@
     </div>
 
     <div class="row mt-5">
-      <div class="col-8">
+      <div class="col-md-8">
         {% if edit %}
           {% if approval_right and not approved %}
             <a class="btn btn-success" href="/refund/approve/{{ request_id }}" id="a-approve">{% trans 'Approve' %}</a>
@@ -73,7 +73,7 @@
         <input type="submit" id="btn-submit" value="{% trans 'Submit' %}" class="btn btn-primary">
         {% endif %}
       </div>
-      <div class="col-4">
+      <div class="col-md-4">
         <div class="alert alert-success">
           <b>{% trans 'Total' %}:</b> <span id="span_amount_total">0,00</span> €
         </div>
