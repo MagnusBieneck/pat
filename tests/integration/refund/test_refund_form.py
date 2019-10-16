@@ -23,7 +23,7 @@ def test_form(login, client):  # pylint: disable=unused-argument
     assert any([template.name == "refund/request_form.html" for template in response.templates])
 
 
-# pylint: disable=no-member, unused-argument
+# pylint: disable=no-member, unused-argument, too-many-arguments
 @pytest.mark.django_db
 def test_submit(login, client, department_leader, project, cost_centre, mocker):
     """Test that submitting the form works correctly."""
