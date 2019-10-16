@@ -5,14 +5,13 @@ import tempfile
 import pytest
 
 from bs4 import BeautifulSoup
-from django.conf import settings
 from django.contrib.auth.models import User
+
+from pat import settings
 from refund.models import Refund, Project, CostCentre
 from tests.conftest import REFUND_DICT
 
 TEST_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testdata", "test_refund_form")
-TEMP_DIR = tempfile.TemporaryDirectory()
-settings.MEDIA_ROOT = TEMP_DIR.name
 
 
 @pytest.mark.django_db
@@ -26,39 +25,43 @@ def test_form(login, client):  # pylint: disable=unused-argument
 
 # pylint: disable=no-member, unused-argument
 @pytest.mark.django_db
-def test_submit(login, client, department_leader, project, cost_centre):
+def test_submit(login, client, department_leader, project, cost_centre, mocker):
     """Test that submitting the form works correctly."""
     department_leader.save()
     project.save()
     cost_centre.save()
 
-    data = REFUND_DICT.copy()
-    data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
-    data["receipt_0_amount"] = 29.99
-    data["department_leader"] = department_leader.id
-    data["project"] = project.id
-    data["cost_centre"] = cost_centre.id
+    with tempfile.TemporaryDirectory() as temp_dir:
+        print("Submit", temp_dir)
+        mocker.patch.object(settings, "MEDIA_ROOT", temp_dir)
+        assert settings.MEDIA_ROOT == temp_dir
 
-    response = client.post("/refund/new/", data=data, follow=True)
+        data = REFUND_DICT.copy()
+        data["receipt_0_picture"] = open(os.path.join(TEST_DATA, "receipt_0.jpg"), "rb")
+        data["receipt_0_amount"] = 29.99
+        data["department_leader"] = department_leader.id
+        data["project"] = project.id
+        data["cost_centre"] = cost_centre.id
 
-    assert response.status_code == 200
-    assert any([template.name == "refund/index.html" for template in response.templates])
+        response = client.post("/refund/new/", data=data, follow=True)
 
-    filter_parameters = REFUND_DICT.copy()
-    filter_parameters.pop("date_submitted")
-    refunds = Refund.objects.filter(department_leader=department_leader, cost_centre=cost_centre,
-                                    project=project, refund_type="cash",
-                                    bank_account_owner="Mr Smith")
+        assert response.status_code == 200
+        assert any([template.name == "refund/index.html" for template in response.templates])
 
-    assert len(refunds) == 1
-    refund = refunds[0]
-    assert refund.receipt_0_picture.name == "receipt_0.jpg"
-    assert os.path.exists(refund.receipt_0_picture.path)
+        filter_parameters = REFUND_DICT.copy()
+        filter_parameters.pop("date_submitted")
+        refunds = Refund.objects.filter(department_leader=department_leader,
+                                        cost_centre=cost_centre,
+                                        project=project, refund_type="cash",
+                                        bank_account_owner="Mr Smith")
 
-    assert "Your request has been successfully created." in str(response.content)
+        assert len(refunds) == 1
+        refund = refunds[0]
+        assert os.path.exists(refund.receipt_0_picture.path)
 
-    data["receipt_0_picture"].close()
-    TEMP_DIR.cleanup()
+        assert "Your request has been successfully created." in str(response.content)
+
+        data["receipt_0_picture"].close()
 
 
 def _create_request(user, department_leader, approved=False, processed=False):

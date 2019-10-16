@@ -84,3 +84,4 @@ quick-verify: lint test
 ##################################### C L E A N   T A R G E T #####################################
 clean:
 	rm -rf *.marker pat.egg-info/* build/* dist/* locale/*/LC_MESSAGES/*.mo geckodriver.log
+	find . -name '*.pyc' -delete

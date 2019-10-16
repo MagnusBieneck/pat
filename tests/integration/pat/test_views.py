@@ -22,3 +22,17 @@ def test_serve_with_login(login, client, mocker):  # pylint: disable=unused-argu
 
         response = client.get("/media/receipt_0.jpg", follow=True)
         assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_not_serve_without_login(client, mocker):  # pylint: disable=unused-argument
+    """Test that serving files does not work when not logged in."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        mocker.patch.object(settings, "MEDIA_ROOT", temp_dir)
+        assert settings.MEDIA_ROOT == temp_dir
+
+        target_path = os.path.join(settings.MEDIA_ROOT, "receipt_0.jpg")
+        shutil.copy(os.path.join(TEST_DATA, "receipt_0.jpg"), target_path)
+
+        response = client.get("/media/receipt_0.jpg")
+        assert response.status_code == 302
