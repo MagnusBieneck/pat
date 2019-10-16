@@ -23,10 +23,11 @@ REQUIRED = [
 	"pytz >= 2018.7",
 	"pytest >= 4.4",
 	"pylint >= 2.2",
-	"pytest-django >= 3.4",
-	"pytest-xdist >= 1.26",
 	"pytest-cov >= 2.6",
-	"selenium >= 3"
+	"pytest-django >= 3.4",
+	"pytest-mock >= 1.11",
+	"pytest-xdist >= 1.26",
+	"selenium >= 3",
 ]
 
 # What packages are optional?
