@@ -13,13 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls.static import static
+import re
+
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, re_path
 
-from pat.views import home
+from pat import settings
+from pat.views import home, serve
 from refund.views import index, request_form, request_edit, request_approve, request_process
 
 # pylint: disable=invalid-name
@@ -32,8 +33,7 @@ urlpatterns = [
     path('refund/edit/<int:request_id>/', request_edit, name='request_edit'),
     path('refund/approve/<int:request_id>/', request_approve, name='request_approve'),
     path('refund/process/<int:request_id>/', request_process, name='request_process'),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    re_path(r'^%s(?P<path>.*)$' % re.escape(settings.MEDIA_URL.lstrip('/')), serve,
+            kwargs={"document_root": settings.MEDIA_ROOT}),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
