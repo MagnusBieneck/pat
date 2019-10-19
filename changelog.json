@@ -1,0 +1,17 @@
+{
+  "0.1.0": {
+    "release_date": null,
+    "features": [
+      {
+        "trello": "fSVu4bLx",
+        "description": "In the refund request form, show the full name of the department leader instead of their username."
+      }
+    ],
+    "bugfixes": [
+      {
+        "trello": "R3DV8BF2",
+        "description": "When viewing a request, department leaders/finance leaders were not able to view uploaded files."
+      }
+    ]
+  }
+}

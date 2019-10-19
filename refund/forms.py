@@ -1,14 +1,17 @@
 """Module containing forms for the refund app."""
 from django import forms
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from localflavor.generic.validators import BICValidator, IBANValidator
 
+from pat.forms import UserChoiceField
 from refund.models import Refund
 
 
 class RefundForm(forms.ModelForm):
     """The basic refund Form Class."""
+    department_leader = UserChoiceField(User.objects.filter(is_staff=True))
 
     # pylint: disable=too-few-public-methods
     class Meta:
